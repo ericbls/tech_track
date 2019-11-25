@@ -3,3 +3,6 @@ Senha ADM: repolho63
 
 Usuário MYSQL: root
 Senha MYSQL: repolho63
+
+Usuário GITHUB: ericbls
+Senha GITHUB: buonpater7
