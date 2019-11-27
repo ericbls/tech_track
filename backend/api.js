@@ -1,4 +1,4 @@
-const machine = require('./machine');
+const machine = require('./functions');
 
 exports.build = function(server){
 
