@@ -4,10 +4,11 @@ var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'ubuntu',
   password : 'buonpater7'
+  database : 'ProjetoFinal'
 });
 
 function get_data(req,res){
-	connection.query('SELECT * FROM desafio3.Dados', function(error, results){
+	connection.query('SELECT * FROM dados_maquinas', function(error, results){
 		if(error){
 			res.sendStatus(500);
 		} else {
@@ -20,8 +21,8 @@ function add_data(req,res){
 
 	console.log(req.body);
 
-	let values = '"' + req.body.maquina_id + '","' + req.body.ip + '","' + req.body.pmc_alm + '","' + req.body.alm_stat + '","' + req.body.emg_stat + '","' + req.body.run_stat + '","' + req.body.motion_stat + '","' + req.body.time + '","' + req.body.date + '"';
-	connection.query('INSERT INTO desafio3.Dados(maquina_id, ip, pmc_alm, alm_stat, emg_stat, run_stat, motion_stat, time, date) VALUES (' + values + ')', function(error, results){
+	let values = '"' + req.body.id + '","' + req.body.estado + '","' + req.body.data + '","' + '"';
+	connection.query('INSERT INTO dados_maquinas(id, estado, data) VALUES (' + values + ')', function(error, results){
 		if(error){
 			console.log(error);
 			res.sendStatus(500);
@@ -32,7 +33,7 @@ function add_data(req,res){
 }
 
 function get_machine(req,res){
-	connection.query('SELECT * FROM desafio3.Maquinas', function(error, results){
+	connection.query('SELECT * FROM maquinas_registradas', function(error, results){
 		if(error){
 			res.sendStatus(500);
 		} else {
@@ -42,11 +43,10 @@ function get_machine(req,res){
 }
 
 function add_machine(req,res){
-	let values = '"' + req.body.fabricante +'","' + req.body.modelo +'","' + req.body.ip + '"';
+	let values = '"' + req.body.ip +'","' + req.body.fabricante +'","' + req.body.modelo + '"';
 
-	connection.query('INSERT INTO desafio3.Maquinas(Fabricante, Modelo, ip) VALUES (' + values + ')', function(error, results){
+	connection.query('INSERT INTO mquinas_registradas(ip, fabricante, modelo) VALUES (' + values + ')', function(error, results){
 	 	if (error){
-			console.log(error);
 	 		res.sendStatus(500);
 	 	} else {
 			res.send(req.body);
@@ -54,15 +54,25 @@ function add_machine(req,res){
 	 })
 }
 
-function get_data_from_machine(req, res){
-  connection.query("SELECT * FROM desafio3.Dados WHERE maquina_id=" + req.params.id, function(error, results){
-    if(error){
-      console.log(error);
-      res.sendStatus(500);
-    } else {
-      res.send(results);
-    }
-  })
+function delete_machine(req,res){
+	connection.query('DELETE FROM maquinas_registradas WHERE id=' + req.params.id, function(error, results){
+		if(error){
+			res.sendStatus(500);
+		} else {
+			res.send(results);
+		}
+	})
 }
 
-module.exports = {get_data, get_machine, add_machine, add_data, get_data_from_machine}
+function update_machine(req,res){
+	let values = '"' + req.body.ip +'","' + req.body.fabricante +'","' + req.body.modelo + '"';
+	connection.query('UPDATE maquinas_registradas; SET (ip, fabricante, modelo) VALUES (' + values +') WHERE id=' + req.params.id, function(error, results){
+		if(error){
+			res.sendStatus(500);
+		} else {
+			res.send(results);
+		}
+	})
+}
+
+module.exports = {get_data, get_machine, add_machine, add_data, delete_machine, update_machine}
