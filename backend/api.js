@@ -1,12 +1,12 @@
-const machine = require('./functions');
+const functions = require('./functions.js');
 
 exports.build = function(server){
 
   server
-  	.get('/techtrack/funtion/cadastro', functions.get_machine)
-    .post('/techtrack/funtion/cadastro', functions.add_machine)
-    .get('/techtrack/funtion/dados', functions.get_data)
-    .post('/techtrack/funtion/dados', functions.add_data)
-    .post('/techtrack/funtion/dados', functions.delete_machine)
-    .post('/techtrack/funtion/dados', functions.update_machine)
+    .get('/techtrack/func/cadastro', functions.get_machine)
+    .post('/techtrack/func/cadastro/add', functions.add_machine)
+    .post('/techtrack/func/cadastro/del', functions.delete_machine)
+    .post('/techtrack/func/cadastro/update', functions.update_machine)
+    .get('/techtrack/func/dados', functions.get_last_data)
+    .post('/techtrack/func/dados', functions.add_data)
 }

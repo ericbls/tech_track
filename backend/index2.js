@@ -4,9 +4,10 @@ const routes 		= require('./api.js');
 
 var api = express();
 
-api.set('port', process.env.PORT || 6000);
+api.set('port', process.env.PORT || 5000);
 
 api.use(express.json());
+api.use(express.urlencoded({extended: false}));
 
 api.use(function(req, res, next){
 	console.log(req.path);
