@@ -10,4 +10,3 @@ exports.build = function(server){
     .post('/techtrack/funtion/dados', functions.delete_machine)
     .post('/techtrack/funtion/dados', functions.update_machine)
 }
-get_data, get_machine, add_machine, add_data, delete_machine, update_machine
