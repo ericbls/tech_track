@@ -8,7 +8,7 @@ var connection = mysql.createConnection({
 });
 
 function get_data(req,res){
-	connection.query('SELECT * FROM dados_maquinas', function(error, results){
+	connection.query('SELECT * FROM dados_maquinas WHERE deletado=0', function(error, results){
 		if(error){
 			res.sendStatus(500);
 		} else {
@@ -33,7 +33,7 @@ function add_data(req,res){
 }
 
 function get_machine(req,res){
-	connection.query('SELECT * FROM maquinas_registradas', function(error, results){
+	connection.query('SELECT ip,fabricante,modelo FROM maquinas_registradas WHERE deletado=0', function(error, results){
 		if(error){
 			res.sendStatus(500);
 		} else {
@@ -55,7 +55,7 @@ function add_machine(req,res){
 }
 
 function delete_machine(req,res){
-	connection.query('DELETE FROM maquinas_registradas WHERE id=' + req.params.id, function(error, results){
+	connection.query('UPDATE maquinas_registradas SET deletado=1 WHERE id=' + req.params.id, function(error, results){
 		if(error){
 			res.sendStatus(500);
 		} else {
@@ -66,7 +66,7 @@ function delete_machine(req,res){
 
 function update_machine(req,res){
 	let values = '"' + req.body.ip +'","' + req.body.fabricante +'","' + req.body.modelo + '"';
-	connection.query('UPDATE maquinas_registradas; SET (ip, fabricante, modelo) VALUES (' + values +') WHERE id=' + req.params.id, function(error, results){
+	connection.query('UPDATE maquinas_registradas SET (ip, fabricante, modelo) VALUES (' + values +') WHERE id=' + req.params.id, function(error, results){
 		if(error){
 			res.sendStatus(500);
 		} else {
