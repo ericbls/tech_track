@@ -14,10 +14,9 @@ app.use(express.urlencoded({extended: false}));
 
 app.get("/dados", function(req,res,next){
 
-  var sql = "SELECT id,ip,estado AS run FROM (";
-  sql += "SELECT id_maquina,estado FROM dados_maquinas AS d JOIN (";
-  sql += "SELECT ROW_NUMBER() OVER(PARTITION BY id_maquina ORDER BY data DESC) AS rn,id FROM dados_maquinas)";
-  sql += " AS r ON d.id=r.id WHERE rn=1) AS dn JOIN (SELECT * FROM maquinas_registradas WHERE deletado=false) AS m ON dn.id_maquina=m.id"
+  var sql = "select m.id,ip,estado as run,data from ";
+  sql += "(select *,row_number() over(partition by id_maquina order by data desc) as rn from dados_maquinas) ";
+  sql += "as d join (select * from maquinas_registradas where deletado=false) as m on d.id_maquina=m.id where rn = 1";
   con.query(sql, function(err,result,field){
 
     if(!err){
