@@ -11,7 +11,7 @@ function get_last_data(req,res){
 	let dados_numerados = "SELECT *,ROW_NUMBER() OVER(PARTITION BY id_maquina ORDER BY data DESC) AS rn FROM dados_maquinas";
         let maquinas_n_del = "SELECT * FROM maquinas_registradas WHERE deletado=false";
         connection.query("SELECT m.id,ip,estado as run,data FROM (" + dados_numerados + ") AS d JOIN (" + maquinas_n_del + ") AS m ON d.id_maquina=m.id WHERE rn=1", function(error, results){
-		if(error){
+		if(!error){
 			res.json(results);
 		} else {
 			res.json([]);
@@ -32,9 +32,9 @@ function get_data(req,res){
 function add_data(req,res){
 	console.log(req.body);
 
-	res.body.forEach(function(value){
+	req.body.forEach(function(value){
 
-		let values = value.id + "," + value.run + ",\"" + value.data + "\"";
+		let values = value.id + "," + value.run + ",\"" + value.date + "\"";
 		connection.query('INSERT INTO dados_maquinas(id_maquina, estado, data) VALUES (' + values + ')', function(error){
 			if(error) console.log(error);
 		});
