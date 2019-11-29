@@ -48,12 +48,14 @@ int main(){
     cnc_startupprocess(0, "teste.log");
     
     unsigned short temph = 0;
+    unsigned short temprun = 0;
     
     json j = json::array();
     json jbuf = json::array();
     
     HTTP http;
     
+    ODBSYS sysinfo;
     ODBST statinfo;
     
     getIPs(&http, &j);
@@ -75,12 +77,38 @@ int main(){
             
             for(int i=0; i<j.size(); i++){
                 if(cnc_allclibhndl3(string(j[i]["ip"]).c_str(),8193,10,&temph) == 0){
+                    cnc_sysinfo(temph, &sysinfo);
                     cnc_statinfo(temph, &statinfo);
                     
                     std::cout << j[i]["ip"] << " " << statinfo.run << std::endl;
                     
-                    if(statinfo.run != j[i]["run"]){
-                        sendData(&http, &(j[i]), &jbuf, statinfo.run);
+                    if((sysinfo.cnc_type[0] == '1') && (sysinfo.cnc_type[1] == '5')){
+                        std::cout << "15" << std::endl;
+                        if((statinfo.run == 0) || (statinfo.run == 8)){
+                            temprun = 0;
+                        } else {
+                            temprun = 1;
+                        }
+                    } else if(sysinfo.mt_type[1] == 'W'){
+                        std::cout << "W" << std::endl;
+                        if((statinfo.run == 0) || (statinfo.run == 4)){
+                            temprun = 0;
+                        } else {
+                            temprun = 1;
+                        }
+                    } else {
+                        std::cout << "else" << std::endl;
+                        if((statinfo.run == 0) || (statinfo.run == 1)){
+                            temprun = 0;
+                        } else {
+                            temprun = 1;
+                        }
+                    }
+                    
+                    std::cout << j[i]["ip"] << " " << temprun << std::endl;
+                    
+                    if(temprun != j[i]["run"]){
+                        sendData(&http, &(j[i]), &jbuf, temprun);
                     }
                     
                     cnc_freelibhndl( temph );
