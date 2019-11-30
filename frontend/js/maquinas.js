@@ -17,7 +17,7 @@ function updateList(dados){
 $(document).ready(function(){
 	$.ajax({
 		method: "GET",
-		url: "/desafio3/info/cadastro",
+		url: "/techtrack/func/cadastro",
 	}).done(function(resp){
 		updateList(resp);
 	})
