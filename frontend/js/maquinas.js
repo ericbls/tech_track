@@ -12,19 +12,26 @@ function fail(){
 	$('.container').prepend(alert);
 }
 
-function updateList(dados){
-	$("#listTable tbody").empty()
-	var table_html = ''
+function updateList(){
+	$.ajax({
+		method: "GET",
+		url: "/techtrack/func/cadastro",
+	}).done(function(resp){
+		$("#listTable tbody").empty()
+		var table_html = ''
 
-	dados.forEach(function(item, index){
-		table_html += "<tr>"
-		table_html += "<th>" + index + "</th>"
-		table_html += "<th>" + item.fabricante + "</th>"
-		table_html += "<th>" + item.modelo + "</th>"
-		table_html += "<th>" + item.ip + "</th>"
-		table_html += "</tr>"
+		resp.forEach(function(item, index){
+			table_html += "<tr>"
+			table_html += "<th>" + index + "</th>"
+			table_html += "<th>" + item.fabricante + "</th>"
+			table_html += "<th>" + item.modelo + "</th>"
+			table_html += "<th>" + item.ip + "</th>"
+			table_html += "</tr>"
+		})
+		$("#listTable tbody").html(table_html);
+	}).fail(function(){
+		alert("error");
 	})
-	$("#listTable tbody").html(table_html);
 }
 
 function submitAdd(){
@@ -141,14 +148,7 @@ function submitMod(){
 
 $(document).ready(function()
 {
-	$.ajax({
-		method: "GET",
-		url: "/techtrack/func/cadastro",
-	}).done(function(resp){
-		updateList(resp);
-	}).fail(function(){
-		alert("error");
-  })
+ 	updateList();
 	submitAdd();
 	submitDel();
 	submitMod();
