@@ -57,7 +57,7 @@ function submitAdd(){
 			updateList();
 		})
 
-		$("#AddForm input").on('keyup',function(){
+		/*$("#AddForm input").on('keyup',function(){
 		    let empty = false;
 
 		    $("#AddForm input").each(function() {
@@ -69,6 +69,7 @@ function submitAdd(){
 		    else
 		      $("#add_butt").attr('disabled', false);
 	  	});
+	  	*/
 	})
 }
 
