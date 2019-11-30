@@ -55,15 +55,26 @@ function get_machine(req,res){
 }
 
 function add_machine(req,res){
-	let values = '"' + req.body.ip +'","' + req.body.fabricante +'","' + req.body.modelo + '"';
+	let values = '"' + req.body.ip + '","' + req.body.fabricante + '","' + req.body.modelo + '"';
 
-	connection.query('INSERT INTO mquinas_registradas(ip, fabricante, modelo) VALUES (' + values + ')', function(error, results){
+	connection.query('INSERT INTO maquinas_registradas(ip, fabricante, modelo) VALUES (' + values + ')', function(error){
 	 	if (error){
 	 		res.sendStatus(500);
 	 	} else {
+			connection.query('SELECT id FROM maquinas_registradas WHERE ip=' + req.body.ip, function(error, results){
+				if(error){
+					console.log(error);
+				} else {
+					let data = new Date();
+					let temp = results[0].id + ',"' + data.getFullYear() + '-' + (data.getMonth()+1) + '-' + data.getDate() + '"';
+					connection.query('INSERT INTO dados_maquinas (id_maquina) VALUES (' + temp + ')', function(error){
+						if(error) console.log(error);
+					});
+				}
+			});
 			res.send(req.body);
 		}
-	 })
+	 });
 }
 
 function delete_machine(req,res){
