@@ -25,24 +25,24 @@
 			<div class="col-md">
 				<div class="container">
 					<form id="AddForm">
-						  <div class="form-group">
-						    <label for="AddMachine">Adicionar nova máquina</label>
-						    <input type="text" class="form-control" id="AddMachineIP" placeholder="Digite o IP">
-						  </div>
+						  	<div class="form-group">
+							    <label for="AddMachine">Adicionar nova máquina</label>
+							    <input name="ip" type="text" class="form-control" id="AddMachineIP" placeholder="Digite o IP">
+						  	</div>
 							<div class="form-group">
-								<input type="text" class="form-control" id="AddMachineMod" placeholder="Digite o Modelo">
+								<input name="modelo" type="text" class="form-control" id="AddMachineMod" placeholder="Digite o Modelo">
 							</div>
 							<div class="form-group">
-								<input type="text" class="form-control" id="AddMachineFab" placeholder="Digite o fornecedor">
+								<input name="fabricante" type="text" class="form-control" id="AddMachineFab" placeholder="Digite o fornecedor">
 							</div>
 							<div class="text-right">
-            		<button id="add_but" type="submit" class="btn btn-dark">Adicionar</button>
-        			</div>
+            					<button id="add_but" type="submit" class="btn btn-dark">Adicionar</button>
+        					</div>
 					</form>
 					<form id="DelForm">
 							<div class="form-group">
 								<label for="AddMachine">Deletar máquina</label>
-								<input type="text" class="form-control" id="DelMachine" placeholder="Digite o ID da máquina que quer deletar">
+								<input name="id" type="text" class="form-control" id="DelMachine" placeholder="Digite o ID da máquina que quer deletar">
 							</div>
 							<div class="text-right">
 								<button id="del_but" type="submit" class="btn btn-dark">Deletar</button>
@@ -51,16 +51,16 @@
 					<form id="ModForm">
 							<div class="form-group">
 								<label for="AddMachine">Modificar máquina</label>
-								<input type="text" class="form-control" id="ModMachineID" placeholder="Digite o ID da máquina que quer alterar">
+								<input name="id" type="text" class="form-control" id="ModMachineID" placeholder="Digite o ID da máquina que quer alterar">
 							</div>
 							<div class="form-group">
-								<input type="text" class="form-control" id="ModMachineIP" placeholder="Digite o novo IP">
+								<input name="ip" type="text" class="form-control" id="ModMachineIP" placeholder="Digite o novo IP">
 							</div>
 							<div class="form-group">
-								<input type="text" class="form-control" id="ModMachineMod" placeholder="Digite o novo modelo">
+								<input name="modelo" type="text" class="form-control" id="ModMachineMod" placeholder="Digite o novo modelo">
 							</div>
 							<div class="form-group">
-								<input type="text" class="form-control" id="ModMachineFab" placeholder="Digite o novo fabricante">
+								<input name="fabricante" type="text" class="form-control" id="ModMachineFab" placeholder="Digite o novo fabricante">
 							</div>
 							<div class="text-right">
 								<button id="mod_but" type="submit" class="btn btn-dark">Modificar</button>
@@ -91,6 +91,6 @@
 		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-		<!-- <script src="js/maquinas.js"></script> -->
+		<script src="js/maquinas.js"></script>
 	</body>
 </html>
