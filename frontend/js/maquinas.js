@@ -14,14 +14,52 @@ function updateList(dados){
 }
 
 
-$(document).ready(function(){
+
+
+function submitAdd(){
+	$("#addForm").on('click',function(event){
+		event.preventDefault();
+
+		var addInfo = $('#AddForm').serializeArray();
+		var addJson = {};
+
+		addInfo.forEach(function(input_data){
+			addJson[input_data.name]=input_data.value;
+		})
+
+		var request =$.ajax({
+			method: "POST",
+			url: "/techtrack/func/cadastro/add",
+			data: JSON.stringy(addJson),
+			contentType: "application/json"
+			dataType:"json",
+		})
+
+		request.fail(function(failed){
+			console.log('FAIL: ',failed)
+			fail();
+		})
+
+		request.done(function(resp){
+			console.log('DONE: ',resp)
+			success();
+		})
+
+	})
+}
+
+
+
+
+
+$(document).ready(function()
+{
 	$.ajax({
 		method: "GET",
 		url: "/techtrack/func/cadastro",
 	}).done(function(resp){
 		updateList(resp);
-	})
-	.fail(function() {
-    	alert( "error" );
-  	})
+	}).fail(function(){
+		alert("error");
+  })
 })
