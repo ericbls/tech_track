@@ -35,12 +35,14 @@
 							<div class="form-group">
 								<input type="text" class="form-control" id="AddMachineFab" placeholder="Digite o fornecedor">
 							</div>
+							<button id="add_but" type="submit" class="btn btn-dark">Adicionar</button>
 					</form>
 					<form id="DelForm">
 							<div class="form-group">
 								<label for="AddMachine">Deletar máquina</label>
 								<input type="text" class="form-control" id="DelMachine" placeholder="Digite o ID da máquina que quer deletar">
 							</div>
+							<button id="del_but" type="submit" class="btn btn-dark">Deletar</button>
 					</form>
 					<form id="ModForm">
 							<div class="form-group">
@@ -56,23 +58,23 @@
 							<div class="form-group">
 								<input type="text" class="form-control" id="ModMachineFab" placeholder="Digite o novo fabricante">
 							</div>
+							<button id="mod_but" type="submit" class="btn btn-dark">Modificar</button>
 					</form>
 				</div>
 			</div>
 			<div class="col-md">
 				<div class="container-fluid">
 					<div class="table-responsive table-hover">
-				  		<table id="listTable" class="table table-bordered table-dark">
+				  		<table id="listTable" class="table table-striped table-dark">
 				    		<thead>
 				    			<tr>
-				    				<th> # </th>
+				    				<th> ID </th>
 				    				<th> Fabricante </th>
 				    				<th> Modelo </th>
 				    				<th> Endereco IP</th>
 				    			</tr>
 				    		</thead>
 				    		<tbody>
-
 				    		</tbody>
 				  		</table>
 					</div>
