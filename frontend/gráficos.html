@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Tech Track</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+	</head>
+	<body>
+
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" href="#">Tech Track</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav">
+					<a class="nav-item nav-link active" href="/techtrack">Home</a>
+					<a class="nav-item nav-link" href="/techtrack/stats">Status atual</a>
+					<a class="nav-item nav-link" href="/techtrack/maquinas">Cadastro de maquinas<span class="sr-only">(current)</span></a>
+				</div>
+			</div>
+		</nav>
+
+		<div class="container-fluid">
+			<div class="table-responsive table-hover">
+		  		<table id="listTable" class="table">
+		    		<thead class="thead-dark">
+		    			<tr>
+		    				<th> # </th>
+		    				<th> Fabricante </th>
+		    				<th> Modelo </th>
+		    				<th> Endereco IP</th>
+		    			</tr>
+		    		</thead>
+		    		<tbody>
+
+		    		</tbody>
+		  		</table>
+			</div>
+		</div>
+
+
+        <h2>Exemplo de Grafico #2 - HIGHCHARTS</h2>
+        <div id="chart-2" style="width:100%; height:400px;"></div>
+        
+        <h2>Exemplo de Grafico #4 - CHARTS.JS</h2>
+        <canvas id="chart-4"  width="400" height="150"></canvas>
+
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="js/graficos_teste.js"></script>
+	</body>
+</html>
