@@ -87,7 +87,7 @@ function submitDel(){
 		var delInfo = $('#DelForm').serializeArray();
 		var delJson = {};
 
-		modInfo.forEach(function(input_data){
+		delInfo.forEach(function(input_data){
 			delJson[input_data.name]=input_data.value;
 		})
 
