@@ -42,8 +42,8 @@ function submitAdd(){
 			method: "POST",
 			url: "/techtrack/func/cadastro/add",
 			data: JSON.stringify(addJson),
-			contentType: "application/json"
-			dataType:"json",
+			contentType: "application/json",
+			dataType:"json"
 		})
 
 		request.fail(function(failed){
@@ -74,8 +74,8 @@ function submitDel(){
 			method: "POST",
 			url: "/techtrack/func/cadastro/del",
 			data: JSON.stringify(delJson),
-			contentType: "application/json"
-			dataType:"json",
+			contentType: "application/json",
+			dataType:"json"
 		})
 
 		request.fail(function(failed){
@@ -107,8 +107,8 @@ function submitMod(){
 			method: "POST",
 			url: "/techtrack/func/cadastro/update",
 			data: JSON.stringify(modJson),
-			contentType: "application/json"
-			dataType:"json",
+			contentType: "application/json",
+			dataType:"json"
 		})
 
 		request.fail(function(failed){
