@@ -61,13 +61,13 @@ function add_machine(req,res){
 	 	if (error){
 	 		res.sendStatus(500);
 	 	} else {
-			connection.query('SELECT id FROM maquinas_registradas WHERE ip=' + req.body.ip, function(error, results){
+			connection.query('SELECT id FROM maquinas_registradas WHERE ip="' + req.body.ip + '"', function(error, results){
 				if(error){
 					console.log(error);
 				} else {
 					let data = new Date();
-					let temp = results[0].id + ',"' + data.getFullYear() + '-' + (data.getMonth()+1) + '-' + data.getDate() + '"';
-					connection.query('INSERT INTO dados_maquinas (id_maquina) VALUES (' + temp + ')', function(error){
+					let temp = results[0].id + ',"' + data.getFullYear() + '-' + (data.getMonth()+1) + '-' + data.getDate() + ' 00:00:00"';
+					connection.query('INSERT INTO dados_maquinas (id_maquina,data) VALUES (' + temp + ')', function(error){
 						if(error) console.log(error);
 					});
 				}
