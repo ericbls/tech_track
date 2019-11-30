@@ -21,24 +21,6 @@
 			</div>
 		</nav>
 
-		<div class="container-fluid">
-			<div class="table-responsive table-hover">
-		  		<table id="listTable" class="table">
-		    		<thead class="thead-dark">
-		    			<tr>
-		    				<th> # </th>
-		    				<th> Fabricante </th>
-		    				<th> Modelo </th>
-		    				<th> Endereco IP</th>
-		    			</tr>
-		    		</thead>
-		    		<tbody>
-
-		    		</tbody>
-		  		</table>
-			</div>
-		</div>
-
 		<form>
 		  <div class="form-group">
 		    <label for="AddMachine">Add new machine</label>
@@ -48,19 +30,40 @@
 		  </div>
 			<div class="form-group">
 				<label for="AddMachine">Del machine</label>
-				<input type="text" class="form-control" id="DelMachine" placeholder="example:Insert a machine ID">
+				<input type="text" class="form-control" id="DelMachine" placeholder="Insert a machine ID">
 			</div>
 			<div class="form-group">
 				<label for="AddMachine">Update machine</label>
-				<input type="text" class="form-control" id="AddMachineIP" placeholder="example:12.345.678.90">
-				<input type="text" class="form-control" id="AddMachineMod" placeholder="example:Century">
-				<input type="text" class="form-control" id="AddMachineFab" placeholder="example:Romi">
+				<input type="text" class="form-control" id="ModMachineID" placeholder="Insert the machine ID to update">
+				<input type="text" class="form-control" id="ModMachineIP" placeholder="Insert a new IP">
+				<input type="text" class="form-control" id="ModMachineMod" placeholder="Insert a new Model">
+				<input type="text" class="form-control" id="ModMachineFab" placeholder="Insert a machine Supplier">
 			</div>
 		</form>
+
+		<table>
+			<div class="container-fluid">
+				<div class="table-responsive table-hover">
+			  		<table id="listTable" class="table">
+			    		<thead class="thead-dark">
+			    			<tr>
+			    				<th> # </th>
+			    				<th> Fabricante </th>
+			    				<th> Modelo </th>
+			    				<th> Endereco IP</th>
+			    			</tr>
+			    		</thead>
+			    		<tbody>
+
+			    		</tbody>
+			  		</table>
+				</div>
+			</div>
+		</table>
 
 		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-		<script src="js/maquinas.js"></script>
+		<!-- <script src="js/maquinas.js"></script> -->
 	</body>
 </html>
