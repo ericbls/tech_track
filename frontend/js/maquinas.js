@@ -58,17 +58,17 @@ function submitAdd(){
 		})
 
 		$("#AddForm input").on('keyup',function(){
-	    let empty = false;
+		    let empty = false;
 
-	    $("#AddForm input").each(function() {
-	      empty = $(this).val().length == 0;
-	    });
+		    $("#AddForm input").each(function() {
+		      empty = $(this).val().length == 0;
+		    });
 
-	    if (empty)
-	      $('.actions input').attr('disabled', 'disabled');
-	    else
-	      $('.actions input').attr('disabled', false);
-	  });
+		    if (empty)
+		      $("#add_but").attr('disabled', 'disabled');
+		    else
+		      $("#add_butt").attr('disabled', false);
+	  	});
 	})
 }
 
