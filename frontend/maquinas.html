@@ -21,45 +21,48 @@
 			</div>
 		</nav>
 
-		<form>
-		  <div class="form-group">
-		    <label for="AddMachine">Add new machine</label>
-		    <input type="text" class="form-control" id="AddMachineIP" placeholder="Insert a machine IP">
-				<input type="text" class="form-control" id="AddMachineMod" placeholder="Insert a machine Model">
-				<input type="text" class="form-control" id="AddMachineFab" placeholder="Insert the machine Suppliers">
-		  </div>
-			<div class="form-group">
-				<label for="AddMachine">Del machine</label>
-				<input type="text" class="form-control" id="DelMachine" placeholder="Insert a machine ID">
-			</div>
-			<div class="form-group">
-				<label for="AddMachine">Update machine</label>
-				<input type="text" class="form-control" id="ModMachineID" placeholder="Insert the machine ID to update">
-				<input type="text" class="form-control" id="ModMachineIP" placeholder="Insert a new IP">
-				<input type="text" class="form-control" id="ModMachineMod" placeholder="Insert a new Model">
-				<input type="text" class="form-control" id="ModMachineFab" placeholder="Insert a machine Supplier">
-			</div>
-		</form>
+		<div class="container">
+			<form id="AddForm">
+				  <div class="form-group">
+				    <label for="AddMachine">Add new machine</label>
+				    <input type="text" class="form-control" id="AddMachineIP" placeholder="Insert a machine IP">
+						<input type="text" class="form-control" id="AddMachineMod" placeholder="Insert a machine Model">
+						<input type="text" class="form-control" id="AddMachineFab" placeholder="Insert the machine Suppliers">
+				  </div>
+			</form>
+			<form id="DelForm">
+					<div class="form-group">
+						<label for="AddMachine">Del machine</label>
+						<input type="text" class="form-control" id="DelMachine" placeholder="Insert a machine ID">
+					</div>
+			</form>
+			<form id="DelForm">
+					<div class="form-group">
+						<label for="AddMachine">Update machine</label>
+						<input type="text" class="form-control" id="ModMachineID" placeholder="Insert the machine ID to update">
+						<input type="text" class="form-control" id="ModMachineIP" placeholder="Insert a new IP">
+						<input type="text" class="form-control" id="ModMachineMod" placeholder="Insert a new Model">
+						<input type="text" class="form-control" id="ModMachineFab" placeholder="Insert a machine Supplier">
+					</div>
+		</div>
 
-		<table>
-			<div class="container-fluid">
-				<div class="table-responsive table-hover">
-			  		<table id="listTable" class="table">
-			    		<thead class="thead-dark">
-			    			<tr>
-			    				<th> # </th>
-			    				<th> Fabricante </th>
-			    				<th> Modelo </th>
-			    				<th> Endereco IP</th>
-			    			</tr>
-			    		</thead>
-			    		<tbody>
+		<div class="container-fluid">
+			<div class="table-responsive table-hover">
+		  		<table id="listTable" class="table">
+		    		<thead class="thead-dark">
+		    			<tr>
+		    				<th> # </th>
+		    				<th> Fabricante </th>
+		    				<th> Modelo </th>
+		    				<th> Endereco IP</th>
+		    			</tr>
+		    		</thead>
+		    		<tbody>
 
-			    		</tbody>
-			  		</table>
-				</div>
+		    		</tbody>
+		  		</table>
 			</div>
-		</table>
+		</div>
 
 		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
