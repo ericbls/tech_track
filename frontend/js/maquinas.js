@@ -56,6 +56,19 @@ function submitAdd(){
 			success();
 			updateList();
 		})
+
+		$("#AddForm input").on('keyup',function(){
+	    let empty = false;
+
+	    $("#AddForm input").each(function() {
+	      empty = $(this).val().length == 0;
+	    });
+
+	    if (empty)
+	      $('.actions input').attr('disabled', 'disabled');
+	    else
+	      $('.actions input').attr('disabled', false);
+	  });
 	})
 }
 
