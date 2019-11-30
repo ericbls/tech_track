@@ -45,7 +45,7 @@ function add_data(req,res){
 }
 
 function get_machine(req,res){
-	connection.query('SELECT ip,fabricante,modelo FROM maquinas_registradas WHERE deletado=0', function(error, results){
+	connection.query('SELECT id,ip,fabricante,modelo FROM maquinas_registradas WHERE deletado=0', function(error, results){
 		if(error){
 			res.sendStatus(500);
 		} else {
@@ -78,7 +78,7 @@ function add_machine(req,res){
 }
 
 function delete_machine(req,res){
-	connection.query('UPDATE maquinas_registradas SET deletado=1 WHERE id=' + req.params.id, function(error, results){
+	connection.query('UPDATE maquinas_registradas SET deletado=1 WHERE id=' + req.body.id, function(error, results){
 		if(error){
 			res.sendStatus(500);
 		} else {
