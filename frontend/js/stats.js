@@ -34,8 +34,10 @@ function lineChart(){
 					pointStyle:'crossRot',
 					borderColor:"rgba(100,60,140,1)",
 					backgroundColor:"rgba(100,60,140,0.2)",
-					pointBorder:"rgba(100,60,140,0.6)",
-					pointBorderWidth:2
+					pointBorder:"rgba(100,60,140,1)",
+					pointBorderWidth:2,
+					pointRadius:5,
+					pointBackgroundColor:"rgba(100,60,140,1)"
 				},
 				{
 					label:"Máquina2",
@@ -43,8 +45,10 @@ function lineChart(){
 					pointStyle:'circle',
 					borderColor:"rgba(80,200,200,1)",
 					backgroundColor:"rgba(80,200,200,0.2)",
-					pointBorder:"rgba(80,200,200,0.2)",
-					pointBorderWidth:2
+					pointBorder:"rgba(80,200,200,1)",
+					pointBorderWidth:2,
+					pointRadius:5,
+					pointBackgroundColor:"rgba(80,200,200,1)",
 				}
 			]
 		},
