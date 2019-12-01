@@ -8,7 +8,8 @@ function updateList(){
 
 		resp.forEach(function(item, index){
 			table_html += "<tr>"
-			table_html += "<th>" + item.id_maq + "</th>"
+			table_html += "<th>" + index + "</th>"
+			table_html += "<th>" + item.id_maquina + "</th>"
 			table_html += "<th>" + item.ip + "</th>"
 			table_html += "<th>" + item.run + "</th>"
 			table_html += "<th>" + item.data + "</th>"
