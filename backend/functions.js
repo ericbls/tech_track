@@ -38,12 +38,18 @@ function add_data(req,res){
 				console.log(error);
 			} else {
 				let data = new Date(value.date);
-				let data2 = new Date(results[0].data);
-				console.log(data);
-				console.log(data.getHours());
-				console.log(data2);
-				console.log(data2.getHours());
-				let values = value.id + ',' + value.run + ',"' + value.date + '","' +  + '"';
+				let dataOld = new Date(results[0].data);
+
+				let days = data.getDate() - dataOld.getDate();
+				let hours = data.getHours() - dataOld.getHours();
+				let minutes = data.getMinutes() - dataOld.getMinutes();
+				let seconds = (data.getSeconds() - dataOld.getSeconds()) + days*86400 + hours*3600 + minutes*60;
+
+				let deltaHours = Math.floor(seconds/3600);
+				let deltaMinutes = Math.floor( (seconds - deltaHours*3600)/60 );
+				let deltaSeconds = seconds - deltaHours*3600 - deltaMinutes*60;
+
+				let values = value.id + ',' + value.run + ',"' + value.date + '","' + deltaHours + ':' + deltaMinutes + ':' + deltaSeconds + '"';
 				connection.query('INSERT INTO dados_maquinas(id_maquina, estado, data, deltaT) VALUES (' + values + ')', function(error){
 					if(error) console.log(error);
 				});
