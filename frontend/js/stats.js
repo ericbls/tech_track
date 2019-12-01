@@ -87,7 +87,7 @@ function lineChart(){
 }
 
 function barChart(){
-	var ctx = $("#barChart");//document.getElementsById('lineChart').getContext('2d');
+	var ctx = $("#barChart");
 	var varChart = new Chart(ctx,{
 		type: 'bar',
 		data: {
