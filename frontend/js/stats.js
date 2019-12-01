@@ -31,13 +31,13 @@ function lineChart(){
 					label:"Máquina1",
 					data:[10,20,30,40,50,60,70],
 					pointStyle:'crossRot',
-					borderColor:'rgba(100,60,140,0)'
+					borderColor:"rgba(100,60,140,1)"
 				},
 				{
 					label:"Máquina2",
 					data:[70,60,50,40,30,20,10],
 					pointStyle:'circle',
-					borderColor:'rgba(80,200,200,0)'
+					borderColor:"rgba(80,200,200,1)"
 				}
 			]
 		},
@@ -47,11 +47,29 @@ function lineChart(){
 				text:'Tempo de uso por máquina (em horas)'
 			},
 			scales:{
+				xAxes:[{
+					display:true,
+					scaleLable:{
+						display:true,
+						labelString:"Dias"
+					}
+				}],
 				yAxes:[{
+					display:true,
+					scaleLable:{
+						display:true,
+						labelString:"Horas"
+					},
 					ticks:{
-						beginAtZero:true
+						beginAtZero:true,
+						max:100
+						//stepsize:5
 					}
 				}]
+			},
+			hover:{
+				mode:'nearest',
+				intersect:true
 			}
 		}
 	});
