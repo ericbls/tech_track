@@ -144,9 +144,8 @@ function barChart(){
 
 $(document).ready(function(){
 	lineChart();
-	var ctx = document.getElementById('chart');
-
-	var myChart = new Chart(ctx, {
+	var ctx2 = $('#barChart');
+	var myChart = new Chart(ctx2, {
 	  type: 'bar',
 	  data: {
 	    labels: ['Risk Level'],
