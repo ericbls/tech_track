@@ -23,6 +23,7 @@ function updateList(){
 
 
 $(document).ready(function(){
-	setInterval(function(){updateList()},5000);
-		
+	setInterval(function(){
+		updateList()
+	},5000);	
 })
