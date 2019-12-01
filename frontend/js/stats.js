@@ -30,11 +30,14 @@ function lineChart(){
 				{
 					label:"Máquina1",
 					data:[10,20,30,40,50,60,70],
-					pointStyle:'cross'
+					pointStyle:'crossRot',
+					borderColor:'rgba(100,60,140,0)'
 				},
 				{
 					label:"Máquina2",
-					data:[70,60,50,40,30,20,10]
+					data:[70,60,50,40,30,20,10],
+					pointStyle:'circle',
+					borderColor:'rgba(80,200,200,0)'
 				}
 			]
 		},
