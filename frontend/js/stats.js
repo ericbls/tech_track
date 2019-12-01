@@ -37,7 +37,7 @@ function lineChart(){
 					data:[70,60,50,40,30,20,10]
 				}
 			]
-		};,
+		},
 		options: {
 			title:{
 				display:true,
