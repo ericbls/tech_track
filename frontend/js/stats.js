@@ -44,7 +44,7 @@ function lineChart(){
 					borderColor:"rgba(80,200,200,1)",
 					backgroundColor:"rgba(80,200,200,0.2)",
 					pointBorder:"rgba(80,200,200,0.2)",
-					pointBorderWidth:2,
+					pointBorderWidth:2
 				}
 			]
 		},
