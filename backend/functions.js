@@ -33,12 +33,22 @@ function add_data(req,res){
 	console.log(req.body);
 
 	req.body.forEach(function(value){
-
-		let values = value.id + "," + value.run + ",\"" + value.date + "\"";
-		connection.query('INSERT INTO dados_maquinas(id_maquina, estado, data) VALUES (' + values + ')', function(error){
-			if(error) console.log(error);
+		connection.query('SELECT data FROM dados_maquinas WHERE id_maquina=' + value.id + ' ORDER BY data DESC LIMIT 1', function(error,results){
+			if(error){
+				console.log(error);
+			} else {
+				let data = new Date(value.date);
+				let data2 = new Date(results[0].data);
+				console.log(data);
+				console.log(data.getHours());
+				console.log(data2);
+				console.log(data2.getHours());
+				let values = value.id + ',' + value.run + ',"' + value.date + '","' +  + '"';
+				connection.query('INSERT INTO dados_maquinas(id_maquina, estado, data, deltaT) VALUES (' + values + ')', function(error){
+					if(error) console.log(error);
+				});
+			}
 		});
-
 	});
 
 	res.json(req.body);
