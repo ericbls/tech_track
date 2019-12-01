@@ -21,7 +21,7 @@ function updateList(){
 }
 
 function lineChart(){
-	var ctx = document.getElementsById('lineChart').getContext('2d');
+	var ctx = $("#lineChart");//document.getElementsById('lineChart').getContext('2d');
 	var varChart = new Chart(ctx,{
 		type: 'line',
 		data: {
