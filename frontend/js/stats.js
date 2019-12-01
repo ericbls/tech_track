@@ -86,6 +86,61 @@ function lineChart(){
 	});
 }
 
+function barChart(){
+	var ctx = $("#barChart");//document.getElementsById('lineChart').getContext('2d');
+	var varChart = new Chart(ctx,{
+		type: 'bar',
+		data: {
+			labels:["Risk Level"],
+			datasets:[
+				{
+					label:'Low',
+					data:[67.8],
+					backgroundColor:'#D6E9C6'
+				},
+				{
+					label: 'Moderate',
+				  data: [20.7],
+				  backgroundColor: '#FAEBCC' // yellow
+				},
+				{
+				  label: 'High',
+				  data: [11.4],
+				  backgroundColor: '#EBCCD1' // red
+				}
+			]
+		},
+		options: {
+			title:{
+				display:true,
+				text:'Tempo de uso por máquina (em horas)'
+			},
+			scales:{
+				xAxes:[{
+					stacked:true,
+					display:true,
+					scaleLable:{
+						display:true,
+						labelString:"Dias"
+					}
+				}],
+				yAxes:[{
+					stacked:true,
+					display:true,
+					scaleLable:{
+						display:true,
+						labelString:"Horas"
+					}
+				}]
+			},
+			hover:{
+				mode:'nearest',
+				intersect:true
+			}
+		}
+	});
+}
+
 
 $(document).ready(function(){
 	lineChart();
