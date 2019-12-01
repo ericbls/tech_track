@@ -1,33 +1,63 @@
-function updateList(dados){
-	$("#listTable tbody").empty()
-	var table_html = ''
+function updateList(){
+	$.ajax({
+		method: "GET",
+		url: "/techtrack/func/dados",
+	}).done(function(resp){
+		$("#listTable tbody").empty()
+		var table_html = ''
 
-	dados.forEach(function(item, index){
-		table_html += "<tr>"
-		table_html += "<th>" + index + "</th>"
-		table_html += "<th>" + item.id_maquina + "</th>"
-		table_html += "<th>" + item.ip + "</th>"
-		table_html += "<th>" + item.pmc_alm + "</th>"
-		table_html += "<th>" + item.alm_stat + "</th>"
-		table_html += "<th>" + item.emg_stat + "</th>"
-		table_html += "<th>" + item.run_stat + "</th>"
-		table_html += "<th>" + item.motion_stat + "</th>"
-		table_html += "<th>" + item.time + "</th>"
-		table_html += "<th>" + item.date + "</th>"
-		table_html += "</tr>"
+		resp.forEach(function(item, index){
+			table_html += "<tr>"
+			table_html += "<th>" + item.id_maq + "</th>"
+			table_html += "<th>" + item.ip + "</th>"
+			table_html += "<th>" + item.run + "</th>"
+			table_html += "<th>" + item.data + "</th>"
+			table_html += "</tr>"
+		})
+		$("#listTable tbody").html(table_html);
+	}).fail(function(){
+		alert("error");
 	})
-	$("#listTable tbody").html(table_html);
+}
+
+function lineChart(){
+	var ctx = document.getElementsById('lineChart').getContext('2d');
+	var varChart = new Chart(ctx,{
+		type: 'line',
+		data: {
+			labels:["1","2","3","4","5","6","7"],
+			datasets:[
+				{
+					label:"Máquina1",
+					data:[10,20,30,40,50,60,70],
+					pointStyle:'cross'
+				},
+				{
+					label:"Máquina2",
+					data:[70,60,50,40,30,20,10]
+				}
+			]
+		};,
+		options: {
+			title:{
+				display:true,
+				text:'Tempo de uso por máquina (em horas)'
+			},
+			scales:{
+				yAxes:[{
+					ticks:{
+						beginAtZero:true
+					}
+				}]
+			}
+		}
+	});
 }
 
 
 $(document).ready(function(){
-	$.ajax({
-		method: "GET",
-		url: "/desafio3/info/dados",
-	}).done(function(resp){
-		updateList(resp);
-	})
-	.fail(function() {
-    	alert( "error" );
-  	})
+	lineChart();
+	setInterval(function(){
+		updateList()
+	},5000);
 })

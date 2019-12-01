@@ -12,5 +12,9 @@
     "chart.js": "^2.9.3",
     "express": "^4.17.1",
     "mysql": "^2.17.1"
+  },
+  "repository":{
+    "type":"git",
+    "url":"git://github.com/ericbls/tech_track.git"
   }
 }

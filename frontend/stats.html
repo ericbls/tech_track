@@ -23,19 +23,14 @@
 
 		<div class="container-fluid">
 			<div class="table-responsive table-hover">
-		  		<table id="listTable" class="table">
-		    		<thead class="thead-dark">
+		  		<table id="listTable" class="table table-striped table-dark">
+		    		<thead>
 		    			<tr>
 		    				<th> # </th>
-		    				<th> ID maquinas </th>
-		    				<th> Endereco Ip </th>
-		    				<th> PMC Alarm </th>
-		    				<th> Alarm status </th>
-		    				<th> Emerg status </th>
-		    				<th> Run status </th>
-		    				<th> Motion status </th>
-		    				<th> Extraction time </th>
-		    				<th> Extraction date </th>
+		    				<th> ID da máquina </th>
+		    				<th> Endereço Ip </th>
+		    				<th> Estado atual </th>
+		    				<th> Última atividade </th>
 		    			</tr>
 		    		</thead>
 		    		<tbody>
@@ -45,9 +40,15 @@
 			</div>
 		</div>
 
+		<div class="container-fluid">
+			<canvas id="lineChart" height="500" width="1200"></canvas>
+		</div>
+
+
 		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-		<script src="js/lista_dados.js"></script>
+		<script src="../backend/node_modules/chart.js/dist/Chart.bundle.js"></script>
+		<script src="js/stats.js"></script>
 	</body>
 </html>
