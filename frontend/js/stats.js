@@ -87,44 +87,30 @@ function lineChart(){
 }
 
 function barChart(){
+	var barChartData = {
+		labels: ['January', 'February', 'March'],
+		datasets: [{
+			label: 'Running',
+			backgroundColor: '#55CACE',
+			data: [
+				10,
+				40,
+				30
+			]
+		}, {
+			label: 'Off',
+			backgroundColor: '#643C8C',
+			data: [
+				90,
+				60,
+				70
+			]
+		}]
+	};
 	var ctx2 = $('#barChart');
 	var myChart = new Chart(ctx2, {
 		type: 'bar',
-		data: {
-			labels: ['Uso diário'],
-			datasets: [
-				{
-					label: 'Off',
-					data: [10],
-					backgroundColor: '#55CACE'
-				},
-				{
-					label: 'Running',
-					data: [20],
-					backgroundColor: '#643C8C'
-				},
-				{
-					data: [5],
-					backgroundColor: '#55CACE'
-				},
-				{
-					data: [25],
-					backgroundColor: '#643C8C'
-				},
-				{
-					data: [10],
-					backgroundColor: '#55CACE'
-				},
-				{
-					data: [20],
-					backgroundColor: '#643C8C'
-				},
-				{
-					data: [10],
-					backgroundColor: '#55CACE'
-				}
-			]
-		},
+		data: barCharData,
 		options: {
 			scales: {
 				xAxes: [{ stacked: true }],
