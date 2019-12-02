@@ -149,6 +149,7 @@ function barChart(){
 
 $(document).ready(function(){
 	lineChart();
+	dropList();
 	barChart();
 	setInterval(function(){
 		updateList()
