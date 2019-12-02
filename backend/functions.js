@@ -29,32 +29,69 @@ function get_data(req,res){
 	});
 }
 
-function add_data(req,res){
-	console.log(req.body);
+function getResults(query,callback){
+	connection.query(query, function(error,results){
+		console.log(results);
+		if(!error){
+			callback(null,results);
+		} else {
+			callback(true,error);
+		}
+	});
+}
 
-	req.body.forEach(function(value){
-		connection.query('SELECT data FROM dados_maquinas WHERE id_maquina=' + value.id + ' ORDER BY data DESC LIMIT 1', function(error,results){
+function sendData(query,callback){
+	connection.query(query, function(error){
+		if(!error){
+			callback(null);
+		} else {
+			callback(error);
+		}
+	});
+}
+
+async function add_data_support(request){
+	for(const [idx, value] of request.body.entries()){
+		console.log(value);
+		await connection.query('',async function(error,results){
 			if(error){
 				console.log(error);
 			} else {
-				let data = new Date(value.date);
-				let dataOld = new Date(results[0].data);
-
-				let days = data.getDate() - dataOld.getDate();
-				let hours = data.getHours() - dataOld.getHours();
-				let minutes = data.getMinutes() - dataOld.getMinutes();
-				let seconds = (data.getSeconds() - dataOld.getSeconds()) + days*86400 + hours*3600 + minutes*60;
-
-				let deltaHours = Math.floor(seconds/3600);
-				let deltaMinutes = Math.floor( (seconds - deltaHours*3600)/60 );
-				let deltaSeconds = seconds - deltaHours*3600 - deltaMinutes*60;
-
-				let values = value.id + ',' + value.run + ',"' + value.date + '","' + deltaHours + ':' + deltaMinutes + ':' + deltaSeconds + '"';
-				connection.query('INSERT INTO dados_maquinas(id_maquina, estado, data, deltaT) VALUES (' + values + ')', function(error){
+				
+				await connection.query('', function(error){
 					if(error) console.log(error);
 				});
 			}
 		});
+	}
+	console.log('Done');
+}
+
+function add_data(req,res){
+	console.log(req.body);
+
+	req.body.forEach(function(value){
+		let resultados = getResults('SELECT data FROM dados_maquinas WHERE id_maquina=' + value.id + ' ORDER BY data DESC LIMIT 1', function(err,data){
+			return [error,data];
+		});
+		if(!resultados[0]){
+			console.log(resultados);
+			let data = new Date(value.date);
+			let dataOld = new Date(resultados[1][0].data);
+
+			let days = data.getDate() - dataOld.getDate();
+			let hours = data.getHours() - dataOld.getHours();
+			let minutes = data.getMinutes() - dataOld.getMinutes();
+			let seconds = (data.getSeconds() - dataOld.getSeconds()) + days*86400 + hours*3600 + minutes*60;
+
+			let values = value.id + ',' + value.run + ',"' + value.date + '",' + seconds;
+			let errM = sendData('INSERT INTO dados_maquinas(id_maquina, estado, data, deltaT) VALUES (' + values + ')', function(data){
+				return data;
+			});
+			if(errM){
+				console.log(errM);
+			}
+		}
 	});
 
 	res.json(req.body);
