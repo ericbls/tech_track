@@ -21,8 +21,16 @@ function updateList(){
 	})
 }
 
+function dropList(){
+	$("#dropItems a").click(function(e){
+    e.preventDefault();
+    var selText = $(this).text();
+    $("#dropButton").text(selText);
+	});
+}
+
 function lineChart(){
-	$.ajax({
+	/*$.ajax({
 		method: "GET",
 		url: "/techtrack/func/cadastro",
 	}).done(function(resp){
@@ -40,7 +48,7 @@ function lineChart(){
 		$("#listTable tbody").html(table_html);
 	}).fail(function(){
 		alert("error");
-	})
+	})*/
 	var ctx = $("#lineChart");//document.getElementsById('lineChart').getContext('2d');
 	var varChart = new Chart(ctx,{
 		type: 'line',
