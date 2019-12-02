@@ -104,27 +104,22 @@ function barChart(){
 					backgroundColor: '#643C8C'
 				},
 				{
-					label: 'Off',
 					data: [5],
 					backgroundColor: '#55CACE'
 				},
 				{
-					label: 'Running',
 					data: [25],
 					backgroundColor: '#643C8C'
 				},
 				{
-					label: 'Off',
 					data: [10],
 					backgroundColor: '#55CACE'
 				},
 				{
-					label: 'Running',
 					data: [20],
 					backgroundColor: '#643C8C'
 				},
 				{
-					label: 'Off',
 					data: [10],
 					backgroundColor: '#55CACE'
 				}
