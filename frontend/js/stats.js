@@ -91,17 +91,17 @@ function barChart(){
 	var myChart = new Chart(ctx2, {
 		type: 'bar',
 		data: {
-			labels: ['Risk Level'],
+			labels: ['Uso diário'],
 			datasets: [
 				{
 					label: 'Off',
 					data: [67.8],
-					backgroundColor: "rgb(80,200,200,1)",
+					backgroundColor: '#55CACE',
 				},
 				{
 					label: 'Running',
 					data: [20.7],
-					backgroundColor: "rgba(100,60,140,1)",
+					backgroundColor: '#643C8C',
 				}
 			]
 		},
@@ -116,7 +116,7 @@ function barChart(){
 
 $(document).ready(function(){
 	lineChart();
-
+	barChart();
 	setInterval(function(){
 		updateList()
 	},5000);
