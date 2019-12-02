@@ -110,7 +110,7 @@ function barChart(){
 	var ctx2 = $('#barChart');
 	var myChart = new Chart(ctx2, {
 		type: 'bar',
-		data: barCharData,
+		data: barChartData,
 		options: {
 			scales: {
 				xAxes: [{ stacked: true }],
