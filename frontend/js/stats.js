@@ -22,6 +22,25 @@ function updateList(){
 }
 
 function lineChart(){
+	$.ajax({
+		method: "GET",
+		url: "/techtrack/func/cadastro",
+	}).done(function(resp){
+		$("#listTable tbody").empty()
+		var table_html = ''
+
+		resp.forEach(function(item, index){
+			table_html += "<tr>"
+			table_html += "<th>" + item.id + "</th>"
+			table_html += "<th>" + item.fabricante + "</th>"
+			table_html += "<th>" + item.modelo + "</th>"
+			table_html += "<th>" + item.ip + "</th>"
+			table_html += "</tr>"
+		})
+		$("#listTable tbody").html(table_html);
+	}).fail(function(){
+		alert("error");
+	})
 	var ctx = $("#lineChart");//document.getElementsById('lineChart').getContext('2d');
 	var varChart = new Chart(ctx,{
 		type: 'line',
@@ -31,7 +50,7 @@ function lineChart(){
 				{
 					label:"Máquina1",
 					data:[10,20,30,40,50,60,70],
-					pointStyle:'crossRot',
+					pointStyle:'cross7Rot',
 					borderColor:"rgba(100,60,140,1)",
 					backgroundColor:"rgba(100,60,140,0.2)",
 					pointBorder:"rgba(100,60,140,1)",
@@ -88,7 +107,7 @@ function lineChart(){
 
 function barChart(){
 	var barChartData = {
-		labels: ['January', 'February', 'March'],
+		labels: ['7h','8h','9h','10h','11h','12h','13h','14h','15h','16h','17h','18h','19h','20h','21h','22h'],
 		datasets: [{
 			label: 'Running',
 			backgroundColor: '#55CACE',
