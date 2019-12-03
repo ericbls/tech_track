@@ -32,7 +32,6 @@ void sendData(HTTP* http, json* j, json* jbuf, int run){
     json tempj;
     tempj["date"] = data;
     tempj["id"] = (*j)["id"];
-    tempj["ip"] = (*j)["ip"];
     tempj["run"] = run;
     
     *jbuf += tempj;
