@@ -26,7 +26,8 @@ function updateList(){
 	})
 };
 
-function lineChart(maquina){
+function lineChart(/*maquina*/){
+	/*
 	var data = [];
 	$.ajax({
 			method: "GET",
@@ -34,6 +35,7 @@ function lineChart(maquina){
 		}).done(function(resp){
 			//$("#listTable tbody").empty();
 		})
+		*/
 	var ctx = $("#lineChart");//document.getElementsById('lineChart').getContext('2d');
 	var varChart = new Chart(ctx,{
 		type: 'line',
@@ -98,13 +100,15 @@ function lineChart(maquina){
 	});
 };
 
-function barChart(maquina){
+function barChart(/*maquina*/){
+	/*
 	$.ajax({
 			method: "GET",
 			url: "/techtrack/func/graph2?id=" + maquina
 		}).done(function(resp){
 			//$("#listTable tbody").empty();
 		})
+		*/
 	var barChartData = {
 		labels: ['7h','8h','9h','10h','11h','12h','13h','14h','15h','16h','17h','18h','19h','20h','21h','22h'],
 		datasets: [{
@@ -143,13 +147,15 @@ function updateCharts(){
     e.preventDefault();
     var selecText = $(this).text();
     $("#dropButton").text(selecText);
-    lineChart(selecText);
-    barChart(selecText);
+    //lineChart(selecText);
+    //barChart(selecText);
 	});
 };
 
 $(document).ready(function(){
 	updateCharts();
+	lineChart();
+	barChart();
 	setInterval(function(){
 		updateList();
 	},5000);
