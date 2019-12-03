@@ -17,7 +17,7 @@ function updateList(){
 			table_html += "<th>" + item.data + "</th>";
 			table_html += "</tr>"
 
-      drop_html += "<a class=\"dropdown-item\" href=\"#\">" + item.id + "OIEEEE" + "</a>"
+      drop_html += "<a class=\"dropdown-item\" href=\"#\">" + item.id </a>"
 		})
 		$("#listTable tbody").html(table_html);
     $("#dropItems").html(drop_html);
@@ -153,6 +153,7 @@ function updateCharts(){
 };
 
 $(document).ready(function(){
+	updateList();
 	updateCharts();
 	lineChart();
 	barChart();
