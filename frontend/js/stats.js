@@ -21,6 +21,7 @@ function updateList(){
 		})
 		$("#listTable tbody").html(table_html);
     $("#dropItems").html(drop_html);
+		$("#dropItems").dropdown('update');
 	}).fail(function(){
 		alert("error");
 	})
@@ -143,7 +144,7 @@ function barChart(){
 };
 
 function updateCharts(){
-	$(".dropdown-item").click(function(e){
+	$("#dropItems a").click(function(e){
     e.preventDefault();
 		console.log("AQUIIIIIIIII")
     var selText = $(this).text();
