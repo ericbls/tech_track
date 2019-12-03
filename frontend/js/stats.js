@@ -145,6 +145,7 @@ function barChart(){
 function updateCharts(){
 	$("#dropItems a").click(function(e){
     e.preventDefault();
+		console.log("AQUIIIIIIIII")
     var selText = $(this).text();
 		console.log(selText);
     $("#dropdownMenuButton").text(selText);
