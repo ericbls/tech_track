@@ -144,9 +144,9 @@ function barChart(/*maquina*/){
 
 function updateCharts(){
 	$("#dropItems a").click(function(e){
-    e.preventDefault();
-    var selText = $(this).text();
-    $("#dropButton").text(selText);
+    e.preventDefault()
+    var selText = $(this).text()
+    $("#dropButton").text(selText)
     //lineChart(selText);
     //barChart(selText);
 	});
