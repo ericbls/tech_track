@@ -143,7 +143,7 @@ function barChart(){
 };
 
 function updateCharts(){
-	$("#dropItems").click(function(e){
+	$(".dropdown-item").click(function(e){
     e.preventDefault();
 		console.log("AQUIIIIIIIII")
     var selText = $(this).text();
