@@ -1,59 +1,39 @@
 function updateList(){
 	$.ajax({
 		method: "GET",
-		url: "/techtrack/func/dados",
+		url: "/techtrack/func/dados"
 	}).done(function(resp){
-		$("#listTable tbody").empty()
-    $("#dropItems").empty()
-		var table_html = ''
-		var drop_items = ''
+		$("#listTable tbody").empty();
+    $("#dropItems").empty();
+		var table_html = '';
+		var drop_html = '';
 
 		resp.forEach(function(item, index){
-			table_html += "<tr>"
-			table_html += "<th>" + index + "</th>"
-			table_html += "<th>" + item.id + "</th>"
-			table_html += "<th>" + item.ip + "</th>"
-			table_html += "<th>" + item.run + "</th>"
-			table_html += "<th>" + item.data + "</th>"
+			table_html += "<tr>";
+			table_html += "<th>" + index + "</th>";
+			table_html += "<th>" + item.id + "</th>";
+			table_html += "<th>" + item.ip + "</th>";
+			table_html += "<th>" + item.run + "</th>";
+			table_html += "<th>" + item.data + "</th>";
 			table_html += "</tr>"
 
-      drop_items += '<a class="dropdown-item" href="#">' + item.id + ' - ' + item.ip + '</a>'
+      drop_html += '<a class="dropdown-item" href="#">' + item.id + '</a>'
 		})
 		$("#listTable tbody").html(table_html);
-    $("#dropItems").html(drop_items);
+    $("#dropItems").html(drop_html);
 	}).fail(function(){
 		alert("error");
 	})
-}
+};
 
-function dropList(){
-	$("#dropItems a").click(function(e){
-    e.preventDefault();
-    var selText = $(this).text();
-    $("#dropButton").text(selText);
-	});
-}
-
-function lineChart(){
-	/*$.ajax({
-		method: "GET",
-		url: "/techtrack/func/cadastro",
-	}).done(function(resp){
-		$("#listTable tbody").empty()
-		var table_html = ''
-
-		resp.forEach(function(item, index){
-			table_html += "<tr>"
-			table_html += "<th>" + item.id + "</th>"
-			table_html += "<th>" + item.fabricante + "</th>"
-			table_html += "<th>" + item.modelo + "</th>"
-			table_html += "<th>" + item.ip + "</th>"
-			table_html += "</tr>"
-		})
-		$("#listTable tbody").html(table_html);
-	}).fail(function(){
-		alert("error");
-	})*/
+function lineChart(maquina){
+	var data = [];
+	$.ajax({
+			method: "GET",
+			url: "/techtrack/func/graph1?id=" + maquina
+		}).done(function(resp){
+			//$("#listTable tbody").empty();
+		}
 	var ctx = $("#lineChart");//document.getElementsById('lineChart').getContext('2d');
 	var varChart = new Chart(ctx,{
 		type: 'line',
@@ -116,9 +96,15 @@ function lineChart(){
 			}
 		}
 	});
-}
+};
 
-function barChart(){
+function barChart(maquina){
+	$.ajax({
+			method: "GET",
+			url: "/techtrack/func/graph2?id=" + maquina
+		}).done(function(resp){
+			//$("#listTable tbody").empty();
+		}
 	var barChartData = {
 		labels: ['7h','8h','9h','10h','11h','12h','13h','14h','15h','16h','17h','18h','19h','20h','21h','22h'],
 		datasets: [{
@@ -150,13 +136,21 @@ function barChart(){
 			}
 		}
 	});
-}
+};
+
+function updateCharts(){
+	$("#dropItems a").click(function(e){
+    e.preventDefault();
+    var selecText = $(this).text();
+    $("#dropButton").text(selecText);
+    lineChart(selecText);
+    barChart(selecText);
+	});
+};
 
 $(document).ready(function(){
-	lineChart();
-	dropList();
-	barChart();
+	updateCharts();
 	setInterval(function(){
-		updateList()
+		updateList();
 	},5000);
 })
