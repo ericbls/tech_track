@@ -4,7 +4,9 @@ function updateList(){
 		url: "/techtrack/func/dados",
 	}).done(function(resp){
 		$("#listTable tbody").empty()
+    $("#dropItems").empty()
 		var table_html = ''
+		var drop_items = ''
 
 		resp.forEach(function(item, index){
 			table_html += "<tr>"
@@ -14,8 +16,11 @@ function updateList(){
 			table_html += "<th>" + item.run + "</th>"
 			table_html += "<th>" + item.data + "</th>"
 			table_html += "</tr>"
+
+      drop_items += '<a class="dropdown-item" href="#">' + item.id + ' - ' + item.ip + '</a>'
 		})
 		$("#listTable tbody").html(table_html);
+    $("#dropItems").html(drop_items);
 	}).fail(function(){
 		alert("error");
 	})
