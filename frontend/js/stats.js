@@ -33,7 +33,7 @@ function lineChart(maquina){
 			url: "/techtrack/func/graph1?id=" + maquina
 		}).done(function(resp){
 			//$("#listTable tbody").empty();
-		}
+		})
 	var ctx = $("#lineChart");//document.getElementsById('lineChart').getContext('2d');
 	var varChart = new Chart(ctx,{
 		type: 'line',
