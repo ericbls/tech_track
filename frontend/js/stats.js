@@ -146,8 +146,8 @@ function updateCharts(){
 	$("#dropItems a").click(function(e){
     e.preventDefault();
     var selText = $(this).text();
-    $("#dropButton").text(selText);
-    $("#dropButton").val(selText);
+    $("#dropdownMenuButton").text(selText);
+    $("#dropdownMenuButton").val(selText);
     //lineChart(selText);
     //barChart(selText);
 	});
