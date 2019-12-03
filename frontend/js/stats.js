@@ -26,7 +26,7 @@ function updateList(){
 	})
 };
 
-function lineChart(/*maquina*/){
+function lineChart(){
 	/*
 	var data = [];
 	$.ajax({
@@ -36,7 +36,7 @@ function lineChart(/*maquina*/){
 			//$("#listTable tbody").empty();
 		})
 		*/
-	var ctx = $("#lineChart");//document.getElementsById('lineChart').getContext('2d');
+	var ctx = $("#lineChart");
 	var varChart = new Chart(ctx,{
 		type: 'line',
 		data: {
@@ -100,7 +100,7 @@ function lineChart(/*maquina*/){
 	});
 };
 
-function barChart(/*maquina*/){
+function barChart(){
 	/*
 	$.ajax({
 			method: "GET",
@@ -153,7 +153,12 @@ function updateCharts(){
 };
 
 $(document).ready(function(){
-	updateCharts();
+	//updateCharts();
+	$("#dropItems a").click(function(e){
+    e.preventDefault()
+    var selText = $(this).text()
+    $("#dropButton").text(selText)
+	});
 	lineChart();
 	barChart();
 	setInterval(function(){
