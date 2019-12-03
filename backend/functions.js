@@ -1,3 +1,4 @@
+const Promise = require('promise');
 const mysql = require('mysql');
 
 var connection = mysql.createConnection({
@@ -29,70 +30,44 @@ function get_data(req,res){
 	});
 }
 
-function getResults(query,callback){
-	connection.query(query, function(error,results){
-		console.log(results);
-		if(!error){
-			callback(null,results);
-		} else {
-			callback(true,error);
-		}
-	});
-}
-
-function sendData(query,callback){
-	connection.query(query, function(error){
-		if(!error){
-			callback(null);
-		} else {
-			callback(error);
-		}
-	});
-}
-
-async function add_data_support(request){
-	for(const [idx, value] of request.body.entries()){
-		console.log(value);
-		await connection.query('',async function(error,results){
+function getDado(query){
+	return new Promise(function(resolve, reject){
+		connection.query(query, function(error, results){
 			if(error){
-				console.log(error);
+				reject(error);
 			} else {
-				
-				await connection.query('', function(error){
-					if(error) console.log(error);
-				});
+				resolve(results);
 			}
 		});
-	}
-	console.log('Done');
+	});
 }
 
 function add_data(req,res){
 	console.log(req.body);
 
-	req.body.forEach(function(value){
-		let resultados = getResults('SELECT data FROM dados_maquinas WHERE id_maquina=' + value.id + ' ORDER BY data DESC LIMIT 1', function(err,data){
-			return [error,data];
+	req.body.reduce(function(nextPromise, dado){
+		return nextPromise.then(function(){
+			return getDado('SELECT data FROM dados_maquinas WHERE id_maquina=' + dado.id + ' ORDER BY data DESC LIMIT 1')
+			.then(function(results){
+				console.log(dado);
+				console.log(results);
+				let data = new Date(dado.date);
+				let dataOld = new Date(results[0].data);
+
+				let days = data.getDate() - dataOld.getDate();
+				let hours = data.getHours() - dataOld.getHours();
+				let minutes = data.getMinutes() - dataOld.getMinutes();
+				let seconds = (data.getSeconds() - dataOld.getSeconds()) + days*86400 + hours*3600 + minutes*60;
+
+				let values = dado.id + ',' + dado.run + ',"' + dado.date + '",' + seconds;
+				console.log(values);
+				connection.query('INSERT INTO dados_maquinas(id_maquina, estado, data, deltaT) VALUES (' + values + ')', function(error){
+					if(error) console.log(error);
+				});
+			})
+			.catch((error)=>console.log(error));
 		});
-		if(!resultados[0]){
-			console.log(resultados);
-			let data = new Date(value.date);
-			let dataOld = new Date(resultados[1][0].data);
-
-			let days = data.getDate() - dataOld.getDate();
-			let hours = data.getHours() - dataOld.getHours();
-			let minutes = data.getMinutes() - dataOld.getMinutes();
-			let seconds = (data.getSeconds() - dataOld.getSeconds()) + days*86400 + hours*3600 + minutes*60;
-
-			let values = value.id + ',' + value.run + ',"' + value.date + '",' + seconds;
-			let errM = sendData('INSERT INTO dados_maquinas(id_maquina, estado, data, deltaT) VALUES (' + values + ')', function(data){
-				return data;
-			});
-			if(errM){
-				console.log(errM);
-			}
-		}
-	});
+	}, Promise.resolve());
 
 	res.json(req.body);
 }
