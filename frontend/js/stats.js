@@ -153,12 +153,7 @@ function updateCharts(){
 };
 
 $(document).ready(function(){
-	//updateCharts();
-	$("#dropItems a").click(function(e){
-    e.preventDefault()
-    var selText = $(this).text()
-    $("#dropButton").text(selText)
-	});
+	updateCharts();
 	lineChart();
 	barChart();
 	setInterval(function(){
