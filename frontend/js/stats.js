@@ -145,10 +145,10 @@ function barChart(/*maquina*/){
 function updateCharts(){
 	$("#dropItems a").click(function(e){
     e.preventDefault();
-    var selecText = $(this).text();
-    $("#dropButton").text(selecText);
-    //lineChart(selecText);
-    //barChart(selecText);
+    var selText = $(this).text();
+    $("#dropButton").text(selText);
+    //lineChart(selText);
+    //barChart(selText);
 	});
 };
 
