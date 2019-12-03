@@ -9,9 +9,9 @@ var connection = mysql.createConnection({
 });
 
 function get_last_data(req,res){
-	let dados_numerados = "SELECT *,ROW_NUMBER() OVER(PARTITION BY id_maquina ORDER BY data DESC) AS rn FROM dados_maquinas";
+	let dados_numerados = "SELECT *,ROW_NUMBER() OVER(PARTITION BY id_maquina ORDER BY data_maq DESC) AS rn FROM dados_maquinas";
         let maquinas_n_del = "SELECT * FROM maquinas_registradas WHERE deletado=false";
-        connection.query("SELECT m.id,ip,estado as run,data FROM (" + dados_numerados + ") AS d JOIN (" + maquinas_n_del + ") AS m ON d.id_maquina=m.id WHERE rn=1", function(error, results){
+        connection.query("SELECT m.id,ip,estado as run,data_maq FROM (" + dados_numerados + ") AS d JOIN (" + maquinas_n_del + ") AS m ON d.id_maquina=m.id WHERE rn=1", function(error, results){
 		if(!error){
 			res.json(results);
 		} else {
@@ -22,6 +22,28 @@ function get_last_data(req,res){
 
 function get_data(req,res){
 	connection.query('SELECT * FROM dados_maquinas WHERE deletado=0', function(error, results){
+		if(error){
+			res.sendStatus(500);
+		} else {
+			res.send(results);
+		}
+	});
+}
+
+function get_dados_grafico_linha(req,res){
+    let values = '"' + req.body.id_maquina +'","' + req.body.data_inicial +'","' + req.body.data_final + '"'; 
+    connection.query('SELECT DATE(data_maq) as data_maq, sum(deltat) as soma_por_dia FROM dados_maquinas WHERE deletado=0 AND data_maq BETWEEN ' + req.body.data_inicial + ' AND ' + req.body.data_final + ' AND id_maquina=' + req.body.id_maquina + 'AND estado=0 GROUP BY DAY(data_maq)', function(error, results){
+		if(error){
+			res.sendStatus(500);
+		} else {
+			res.send(results);
+		}
+	});
+}
+
+function get_dados_grafico_barras(req,res){
+    let values = '"' + req.body.id_maquina +'","' + req.body.data_inicial +'","' + req.body.data_final + '"'; 
+    connection.query('SELECT TIME(data_maq) as data_maq, deltat FROM dados_maquinas WHERE deletado=0 AND id_maquina=' + req.body.id_maquina + 'AND estado=0', function(error, results){
 		if(error){
 			res.sendStatus(500);
 		} else {
@@ -47,7 +69,7 @@ function add_data(req,res){
 
 	req.body.reduce(function(nextPromise, dado){
 		return nextPromise.then(function(){
-			return getDado('SELECT data FROM dados_maquinas WHERE id_maquina=' + dado.id + ' ORDER BY data DESC LIMIT 1')
+			return getDado('SELECT data_maq FROM dados_maquinas WHERE id_maquina=' + dado.id + ' ORDER BY data_maq DESC LIMIT 1')
 			.then(function(results){
 				console.log(dado);
 				console.log(results);
@@ -61,7 +83,7 @@ function add_data(req,res){
 
 				let values = dado.id + ',' + dado.run + ',"' + dado.date + '",' + seconds;
 				console.log(values);
-				connection.query('INSERT INTO dados_maquinas(id_maquina, estado, data, deltaT) VALUES (' + values + ')', function(error){
+				connection.query('INSERT INTO dados_maquinas(id_maquina, estado, data_maq, deltaT) VALUES (' + values + ')', function(error){
 					if(error) console.log(error);
 				});
 			})
@@ -126,4 +148,4 @@ function update_machine(req,res){
 	})
 }
 
-module.exports = {get_data, get_last_data, get_machine, add_machine, add_data, delete_machine, update_machine}
+module.exports = {get_data, get_last_data, get_machine, get_dados_grafico_linha, get_dados_grafico_barras, add_machine, add_data, delete_machine, update_machine}
