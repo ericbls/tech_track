@@ -179,7 +179,7 @@ function barChart(){
 		}).done(function(resp){
 			resp.forEach(function(item,index){
 			let finish_time = new Date(item.data_maq);
-			let finish_hour = finish_time.getHour();
+			let finish_hour = finish_time.getHours();
 			let finish_min = finish_time.getMinutes();
 			let finish_sec = finish_time.getSeconds();
 			let finish_sec_sum = finish_hour*3600+finish_min*60+finish_sec;
