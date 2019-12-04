@@ -55,10 +55,12 @@ function get_dados_grafico_linha(req,res){
 }
 
 function get_dados_grafico_barras(req,res){
-    connection.query('SELECT TIME(data_maq) as data_maq, deltaT FROM dados_maquinas WHERE id_maquina=' + req.query.id_maquina + 'AND estado=0', function(error, results){
+    connection.query('SELECT TIME(data_maq) as data_maq, deltaT FROM dados_maquinas WHERE id_maquina=' + req.query.id_maquina + ' AND estado=0', function(error, results){
 		if(error){
+      console.log(error);
 			res.sendStatus(500);
 		} else {
+      console.log(results);
 			res.send(results);
 		}
 	});
