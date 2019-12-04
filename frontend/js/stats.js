@@ -98,11 +98,16 @@ function lineChart(){
 	var maquina = $("#dropdownMenuButton").text();
 	var start_date = $("#start_date").text();
 	var end_date = $("#end_date").text();
+	var datas = [];
+	var deltat = [];
 	$.ajax({
 			method: "GET",
 			url: "/techtrack/func/dados/linha?id_maquina=" + maquina + "&data_inicial=" + start_date + "&dafa_final=" + end_date
 		}).done(function(resp){
-			//$("#listTable tbody").empty();
+			resp.forEach(function(item,index){
+				deltat[index]=item.soma_por_dia;
+				datas[index]=item.data_maq;
+			})
 		}).fail(function(mensagem){
 			alert(mensagem);
 		});
@@ -110,11 +115,11 @@ function lineChart(){
 	var varChart = new Chart(ctx,{
 		type: 'line',
 		data: {
-			labels:["1","2","3","4","5","6","7"],
+			labels:datas,
 			datasets:[
 				{
-					label:"Máquina1",
-					data:[10,20,30,40,50,60,70],
+					label:"",
+					data:deltat,
 					pointStyle:'cross7Rot',
 					borderColor:"rgba(100,60,140,1)",
 					backgroundColor:"rgba(100,60,140,0.2)",
@@ -122,17 +127,6 @@ function lineChart(){
 					pointBorderWidth:2,
 					pointRadius:5,
 					pointBackgroundColor:"rgba(100,60,140,1)"
-				},
-				{
-					label:"Máquina2",
-					data:[70,60,50,40,30,20,10],
-					pointStyle:'circle',
-					borderColor:"rgba(80,200,200,1)",
-					backgroundColor:"rgba(80,200,200,0.2)",
-					pointBorder:"rgba(80,200,200,1)",
-					pointBorderWidth:2,
-					pointRadius:5,
-					pointBackgroundColor:"rgba(80,200,200,1)",
 				}
 			]
 		},
