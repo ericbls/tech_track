@@ -298,8 +298,8 @@ function barChart(){
 $(document).ready(function(){
 	buildList();
 	$("#reloadGraphs").click(function(){
-		myLineChart.destroy();
-		myBarChart.destroy();
+		varLineChart.destroy();
+		varBarChart.destroy();
 		lineChart();
 		barChart();
 	});
