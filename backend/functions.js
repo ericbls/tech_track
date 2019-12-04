@@ -31,8 +31,7 @@ function get_data(req,res){
 }
 
 function get_dados_grafico_linha(req,res){
-    let values = '"' + req.body.id_maquina +'","' + req.body.data_inicial +'","' + req.body.data_final + '"'; 
-    connection.query('SELECT DATE(data_maq) as data_maq, sum(deltat) as soma_por_dia FROM dados_maquinas WHERE deletado=0 AND data_maq BETWEEN ' + req.body.data_inicial + ' AND ' + req.body.data_final + ' AND id_maquina=' + req.body.id_maquina + 'AND estado=0 GROUP BY DAY(data_maq)', function(error, results){
+    connection.query('SELECT DATE(data_maq) as data_maq, sum(deltat) as soma_por_dia FROM dados_maquinas WHERE deletado=0 AND data_maq BETWEEN ' + req.query.data_inicial + ' AND ' + req.query.data_final + ' AND id_maquina=' + req.query.id_maquina + 'AND estado=0 GROUP BY DAY(data_maq)', function(error, results){
 		if(error){
 			res.sendStatus(500);
 		} else {
@@ -41,9 +40,8 @@ function get_dados_grafico_linha(req,res){
 	});
 }
 
-function get_dados_grafico_barras(req,res){
-    let values = '"' + req.body.id_maquina +'","' + req.body.data_inicial +'","' + req.body.data_final + '"'; 
-    connection.query('SELECT TIME(data_maq) as data_maq, deltat FROM dados_maquinas WHERE deletado=0 AND id_maquina=' + req.body.id_maquina + 'AND estado=0', function(error, results){
+function get_dados_grafico_barras(req,res){ 
+    connection.query('SELECT TIME(data_maq) as data_maq, deltat FROM dados_maquinas WHERE deletado=0 AND id_maquina=' + req.query.id_maquina + 'AND estado=0', function(error, results){
 		if(error){
 			res.sendStatus(500);
 		} else {
@@ -74,7 +72,7 @@ function add_data(req,res){
 				console.log(dado);
 				console.log(results);
 				let data = new Date(dado.date);
-				let dataOld = new Date(results[0].data);
+				let dataOld = new Date(results[0].data_maq);
 
 				let days = data.getDate() - dataOld.getDate();
 				let hours = data.getHours() - dataOld.getHours();
@@ -117,7 +115,7 @@ function add_machine(req,res){
 				} else {
 					let data = new Date();
 					let temp = results[0].id + ',"' + data.getFullYear() + '-' + (data.getMonth()+1) + '-' + data.getDate() + ' 00:00:00"';
-					connection.query('INSERT INTO dados_maquinas (id_maquina,data) VALUES (' + temp + ')', function(error){
+					connection.query('INSERT INTO dados_maquinas (id_maquina,data_maq) VALUES (' + temp + ')', function(error){
 						if(error) console.log(error);
 					});
 				}
@@ -139,7 +137,7 @@ function delete_machine(req,res){
 
 function update_machine(req,res){
 	let values = '"' + req.body.ip +'","' + req.body.fabricante +'","' + req.body.modelo + '"';
-	connection.query('UPDATE maquinas_registradas SET (ip, fabricante, modelo) VALUES (' + values +') WHERE id=' + req.params.id, function(error, results){
+	connection.query('UPDATE maquinas_registradas SET (ip, fabricante, modelo) VALUES (' + values +') WHERE id=' + req.body.id, function(error, results){
 		if(error){
 			res.sendStatus(500);
 		} else {
