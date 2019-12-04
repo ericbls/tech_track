@@ -61,6 +61,63 @@ function buildList(){
 		autoclose: true,
 	};
 	end_date_input.datepicker(end_options);
+
+	var ctx = $("#lineChart");
+	var varLineChart = new Chart(ctx,{
+		type: 'line',
+		data: {
+			labels:[],
+			datasets:[{
+					label:"",
+					data:[],
+					pointStyle:'circle',
+					borderColor:"rgba(100,60,140,1)",
+					backgroundColor:"rgba(100,60,140,0.2)",
+					pointBorder:"rgba(100,60,140,1)",
+					pointBorderWidth:2,
+					pointRadius:5,
+					pointBackgroundColor:"rgba(100,60,140,1)"
+				}]
+		},
+		options: {
+			title:{
+				display:true,
+				text:'Tempo de uso por máquina (em horas)'
+			},
+			scales:{
+				xAxes:[{
+					display:true,
+					scaleLable:{
+						display:true,
+						labelString:'Dias'
+					}
+				}],
+				yAxes:[{
+					display:true,
+					scaleLable:{
+						display:true,
+						labelString:"Horas"
+					},
+					ticks:{
+						beginAtZero:true,
+						max:24
+					}
+				}]
+			}
+		}
+	});
+
+	var ctx2 = $("#barChart");
+	var myBarChart = new Chart(ctx2, {
+		type: 'bar',
+		data: [],
+		options: {
+			scales: {
+				xAxes: [{ stacked: false }],
+				yAxes: [{ stacked: false }]
+			}
+		}
+	});
 };
 
 function updateList(){
@@ -124,7 +181,7 @@ function lineChart(){
 				datas[index]= temp2;
 			})
 			var ctx = $("#lineChart");
-			var varChart = new Chart(ctx,{
+			var varLineChart = new Chart(ctx,{
 				type: 'line',
 				data: {
 					labels:datas,
@@ -223,7 +280,7 @@ function barChart(){
 			}]
 		};
 		var ctx2 = $("#barChart");
-		var myChart = new Chart(ctx2, {
+		var myBarChart = new Chart(ctx2, {
 			type: 'bar',
 			data: barChartData,
 			options: {
@@ -241,6 +298,8 @@ function barChart(){
 $(document).ready(function(){
 	buildList();
 	$("#reloadGraphs").click(function(){
+		myLineChart.destroy();
+		myBarChart.destroy();
 		lineChart();
 		barChart();
 	});
