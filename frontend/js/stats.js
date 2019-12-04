@@ -117,58 +117,58 @@ function lineChart(){
 			resp.forEach(function(item,index){
 				deltat[index]=item.soma_por_dia;
 				datas[index]=item.data_maq;
-				var ctx = $("#lineChart");
-				var varChart = new Chart(ctx,{
-					type: 'line',
-					data: {
-						labels:datas,
-						datasets:[
-							{
-								label:"",
-								data:deltat,
-								pointStyle:'cross7Rot',
-								borderColor:"rgba(100,60,140,1)",
-								backgroundColor:"rgba(100,60,140,0.2)",
-								pointBorder:"rgba(100,60,140,1)",
-								pointBorderWidth:2,
-								pointRadius:5,
-								pointBackgroundColor:"rgba(100,60,140,1)"
-							}
-						]
-					},
-					options: {
-						title:{
-							display:true,
-							text:'Tempo de uso por máquina (em horas)'
-						},
-						scales:{
-							xAxes:[{
-								display:true,
-								scaleLable:{
-									display:true,
-									labelString:'Dias'
-								}
-							}],
-							yAxes:[{
-								display:true,
-								scaleLable:{
-									display:true,
-									labelString:'Horas'
-								},
-								ticks:{
-									beginAtZero:true,
-									max:100
-									//stepsize:5
-								}
-							}]
-						},
-						hover:{
-							mode:'nearest',
-							intersect:true
-						}
-					}
-				});
 			})
+			var ctx = $("#lineChart");
+			var varChart = new Chart(ctx,{
+				type: 'line',
+				data: {
+					labels:datas,
+					datasets:[
+						{
+							label:"",
+							data:deltat,
+							pointStyle:'cross7Rot',
+							borderColor:"rgba(100,60,140,1)",
+							backgroundColor:"rgba(100,60,140,0.2)",
+							pointBorder:"rgba(100,60,140,1)",
+							pointBorderWidth:2,
+							pointRadius:5,
+							pointBackgroundColor:"rgba(100,60,140,1)"
+						}
+					]
+				},
+				options: {
+					title:{
+						display:true,
+						text:'Tempo de uso por máquina (em horas)'
+					},
+					scales:{
+						xAxes:[{
+							display:true,
+							scaleLable:{
+								display:true,
+								labelString:'Dias'
+							}
+						}],
+						yAxes:[{
+							display:true,
+							scaleLable:{
+								display:true,
+								labelString:'Horas'
+							},
+							ticks:{
+								beginAtZero:true,
+								max:100
+								//stepsize:5
+							}
+						}]
+					},
+					hover:{
+						mode:'nearest',
+						intersect:true
+					}
+				}
+			});
 		}).fail(function(mensagem){
 			alert(mensagem);
 		});
