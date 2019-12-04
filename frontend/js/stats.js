@@ -173,6 +173,7 @@ function lineChart(){
 		}
 	});
 };
+
 /*
 function barChart(){
 	$.ajax({
@@ -214,6 +215,7 @@ function barChart(){
 	});
 };
 */
+
 $(document).ready(function(){
 	buildList();
 	$("#reloadGraphs").click(function(){
