@@ -108,7 +108,7 @@ function buildList(){
 	});
 
 	var ctx2 = $("#barChart");
-	var myBarChart = new Chart(ctx2, {
+	var varBarChart = new Chart(ctx2, {
 		type: 'bar',
 		data: [],
 		options: {
