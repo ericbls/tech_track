@@ -196,16 +196,14 @@ function barChart(){
 				for(var i=idx1+1; i<idx2; i++){
 					time_sum[i] += 3600;
 				}
-				console.log(time_sum);
 			})
 
 		var total_sum = time_sum.reduce(function(a,b){
 			return a + b;
 		}, 0);
 		var relative_sum=[];
-		console.log("total_sum: "+total_sum);
 		time_sum.forEach(function(item,index){
-			relative_sum[index] = item/total_sum;
+			relative_sum[index] = (item/total_sum) * 100;
 		})
 		var barChartData = {
 			labels: ['7h','8h','9h','10h','11h','12h','13h','14h','15h','16h','17h','18h','19h','20h','21h','22h'],
