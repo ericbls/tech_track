@@ -1,4 +1,4 @@
-var url =  "http://http://18.223.194.18"
+var url =  "http://18.223.194.18"
 
 function success(){
 	var alert  = '<div class="alert alert-success alert-dismissible fade show" role="alert">O cadastro foi realizado com sucesso!'
