@@ -116,7 +116,8 @@ function lineChart(){
 		}).done(function(resp){
 			resp.forEach(function(item,index){
 				deltat[index]=(item.soma_por_dia)/3600;
-				datas[index]= item.data_maq//.toDateString();
+				let temp = new Date(item.data_maq);
+				datas[index]= temp.toDateString();
 			})
 			var ctx = $("#lineChart");
 			var varChart = new Chart(ctx,{
@@ -142,7 +143,6 @@ function lineChart(){
 					},
 					scales:{
 						xAxes:[{
-							xAxisID:"Datas",
 							display:true,
 							scaleLable:{
 								display:true,
@@ -150,7 +150,6 @@ function lineChart(){
 							}
 						}],
 						yAxes:[{
-							yAxisID:"Horas",
 							display:true,
 							scaleLable:{
 								display:true,
@@ -159,7 +158,6 @@ function lineChart(){
 							ticks:{
 								beginAtZero:true,
 								max:24
-								//stepsize:5
 							}
 						}]
 					},
@@ -174,13 +172,16 @@ function lineChart(){
 		});
 };
 
-/*
 function barChart(){
+	var maquina = $("#dropdownMenuButton").text();
+	var time_sum = [];
 	$.ajax({
 			method: "GET",
 			url: "/techtrack/func/barra?id=" + maquina
 		}).done(function(resp){
-			//$("#listTable tbody").empty();
+			resp.forEach(function(item,index){
+				maquinas[index-7]
+			})
 		})
 	var barChartData = {
 		labels: ['7h','8h','9h','10h','11h','12h','13h','14h','15h','16h','17h','18h','19h','20h','21h','22h'],
@@ -214,7 +215,6 @@ function barChart(){
 		}
 	});
 };
-*/
 
 $(document).ready(function(){
 	buildList();
