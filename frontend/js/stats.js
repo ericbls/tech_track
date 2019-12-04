@@ -105,11 +105,11 @@ function updateList(){
 };
 
 function lineChart(){
-	var maquina = $("#dropdownMenuButton").text();
-	var start_date = $("#start_date").val();
-	var end_date = $("#end_date").val();
-	var datas = [];
-	var deltat = [];
+	let maquina = $("#dropdownMenuButton").text();
+	let start_date = $("#start_date").val();
+	let end_date = $("#end_date").val();
+	let datas = [];
+	let deltat = [];
 	$.ajax({
 			method: "GET",
 			url: "/techtrack/func/dados/linha?id_maquina=" + maquina + "&data_inicial=" + start_date + "&data_final=" + end_date
@@ -117,7 +117,7 @@ function lineChart(){
 			resp.forEach(function(item,index){
 				deltat[index]=(item.soma_por_dia)/3600;
 				let temp = new Date(item.data_maq);
-				var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+				let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 				let temp2 = temp.getDate() + " " + months[temp.getMonth()];
 				datas[index]= temp2;
 			})
@@ -162,10 +162,6 @@ function lineChart(){
 								max:24
 							}
 						}]
-					},
-					hover:{
-						mode:'nearest',
-						intersect:true
 					}
 				}
 			});
@@ -175,34 +171,45 @@ function lineChart(){
 };
 
 function barChart(){
-	var maquina = $("#dropdownMenuButton").text();
-	var time_sum = [];
+	let maquina = $("#dropdownMenuButton").text();
+	let time_sum = [];
 	$.ajax({
 			method: "GET",
 			url: "/techtrack/func/barra?id=" + maquina
 		}).done(function(resp){
 			resp.forEach(function(item,index){
-				maquinas[index-7]
-			})
+			let finish_time new Date(item.data_maq);
+			let finish_hour = finish_time.getHour();
+			let finish_min = finish_time.getMinutes();
+			let finish_sec = finish_time.getSeconds();
+			let finish_sec_sum = finish_hour*3600+finish_min*60+finish_sec;
+			let begin_sec_sum = finish_sec_sum - item.deltaT;
+			let begin_hour = Math.floor(begin_sec_sum/3600);
+			let idx1 = begin_hour - 7;
+			let t1 = (begin_hour+1)
+			let ret1 = t1*3600-begin_sec_sum;
+			time_sum[idx1] += ret1;
+
+			let idx2 = finish_hour - 7;
+			let t2 = (finish_hour+1)
+			let ret2 = t2*3600-finish_sec_sum;
+			time_sum[idx2] += ret2;
 		})
+	})
+	console.log(time_sum);
+	var total_sum = arr => arr.reduce((a,b) => a + b, 0)
+	console.log(total_sum);
+	time_sum.forEach(function(item,index){
+		let relative_sum = time_sum.item/total_sum;
+		time_sum.item=relative_sum;
+	})
+	console.log(time_sum);
 	var barChartData = {
 		labels: ['7h','8h','9h','10h','11h','12h','13h','14h','15h','16h','17h','18h','19h','20h','21h','22h'],
 		datasets: [{
 			label: 'Running',
 			backgroundColor: '#55CACE',
-			data: [
-				10,
-				40,
-				30
-			]
-		}, {
-			label: 'Off',
-			backgroundColor: '#643C8C',
-			data: [
-				90,
-				60,
-				70
-			]
+			data: time_sum
 		}]
 	};
 	var ctx2 = $("#barChart");
@@ -211,8 +218,8 @@ function barChart(){
 		data: barChartData,
 		options: {
 			scales: {
-				xAxes: [{ stacked: true }],
-				yAxes: [{ stacked: true }]
+				xAxes: [{ stacked: false }],
+				yAxes: [{ stacked: false }]
 			}
 		}
 	});
