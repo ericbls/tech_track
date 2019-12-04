@@ -171,11 +171,11 @@ function lineChart(){
 };
 
 function barChart(){
-	let maquina = $("#dropdownMenuButton").text();
+	let maquina2 = $("#dropdownMenuButton").text();
 	let time_sum = [];
 	$.ajax({
 			method: "GET",
-			url: "/techtrack/func/dados/barra?id_maquina=" + maquina
+			url: "/techtrack/func/dados/barra?id_maquina=" + maquina2
 		}).done(function(resp){
 			resp.forEach(function(item,index){
 			let finish_time = new Date(item.data_maq);
