@@ -216,8 +216,8 @@ function barChart(){
 			labels: ['7h','8h','9h','10h','11h','12h','13h','14h','15h','16h','17h','18h','19h','20h','21h','22h'],
 			datasets: [{
 				label: 'Running',
-				borderColor:'rgba(85, 202, 206, 0.6)',
-				backgroundColor: '#55CACE',
+				borderColor:'rgba(85, 202, 206, 1)',
+				backgroundColor: 'rgba(85, 202, 206, 0.6)',
 				data: relative_sum
 			}]
 		};
