@@ -193,10 +193,9 @@ function barChart(){
 			let idx2 = finish_hour - 7;
 			let ret2 = finish_min*60+finish_sec;
 			time_sum[idx2] += ret2;
-
 			for(int i=idx1+1;i<dx2;i++){
 				time_sum[i] += 3600;
-			}
+			};
 		})
 	})
 	console.log(time_sum);
