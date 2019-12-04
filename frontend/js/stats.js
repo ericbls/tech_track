@@ -106,13 +106,13 @@ function updateList(){
 
 function lineChart(){
 	var maquina = $("#dropdownMenuButton").text();
-	var start_date = $("#start_date").text();
-	var end_date = $("#end_date").text();
+	var start_date = $("#start_date").val();
+	var end_date = $("#end_date").val();
 	var datas = [];
 	var deltat = [];
 	$.ajax({
 			method: "GET",
-			url: "/techtrack/func/dados/linha?id_maquina=" + maquina + "&data_inicial=" + start_date + "&dafa_final=" + end_date
+			url: "/techtrack/func/dados/linha?id_maquina=" + maquina + "&data_inicial=" + start_date + "&data_final=" + end_date
 		}).done(function(resp){
 			resp.forEach(function(item,index){
 				deltat[index]=item.soma_por_dia;
