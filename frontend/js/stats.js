@@ -156,6 +156,7 @@ function lineChart(){
 							},
 							ticks:{
 								beginAtZero:true,
+								max:24
 								//stepsize:5
 							}
 						}]
