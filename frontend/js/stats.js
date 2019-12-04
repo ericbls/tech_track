@@ -231,7 +231,7 @@ $(document).ready(function(){
 	buildList();
 	$("#reloadGraphs").click(function(){
 		lineChart();
-		//barChart();
+		barChart();
 	});
 	setInterval(function(){
 		updateList()
