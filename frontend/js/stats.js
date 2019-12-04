@@ -178,6 +178,8 @@ function barChart(){
 			url: "/techtrack/func/dados/barra?id_maquina=" + maquina2
 		}).done(function(resp){
 			resp.forEach(function(item,index){
+			console.log(item.data_maq);
+			console.log(item.deltaT);
 			let finish_time = new Date(item.data_maq);
 			let finish_hour = finish_time.getHours();
 			let finish_min = finish_time.getMinutes();
