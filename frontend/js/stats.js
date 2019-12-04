@@ -205,7 +205,9 @@ function barChart(){
 					time_sum[i] += 3600;
 			}
 		})
-		var total_sum = time_sum.reduce((a,b) => a + b, 0)
+		var total_sum = time_sum.reduce(function(a,b){
+			return a + b;
+		}, 0);
 		var relative_sum=[];
 		console.log("total_sum: "+total_sum);
 		time_sum.forEach(function(item,index){
