@@ -114,7 +114,10 @@ function buildList(){
 		options: {
 			scales: {
 				xAxes: [{ stacked: false }],
-				yAxes: [{ stacked: false }]
+				yAxes: [{
+					ticks:{beginAtZero:true},
+					stacked: false
+				}]
 			}
 		}
 	});
