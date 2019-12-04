@@ -182,7 +182,7 @@ function barChart(){
 			resp.forEach(function(item,index){
 				if(item.deltat != 0){
 					console.log(item.data_maq);
-					let finish_time = new Date("2000-01-01T" + item.data_maq + "-03:00");
+					let finish_time = new Date("2000-06-01T" + item.data_maq + "-03:00");
 					console.log(finish_time);
 					let finish_hour = finish_time.getHours();
 					let finish_min = finish_time.getMinutes();
