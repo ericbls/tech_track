@@ -175,7 +175,7 @@ function barChart(){
 	let time_sum = [];
 	$.ajax({
 			method: "GET",
-			url: "/techtrack/func/barra?id=" + maquina
+			url: "/techtrack/func/barra?id_maquina=" + maquina
 		}).done(function(resp){
 			resp.forEach(function(item,index){
 			let finish_time = new Date(item.data_maq);
@@ -205,7 +205,7 @@ function barChart(){
 	time_sum.forEach(function(item,index){
 		relative_sum[index] = item/total_sum;
 	})
-	console.log(time_sum);
+	console.log(relative_sum);
 	var barChartData = {
 		labels: ['7h','8h','9h','10h','11h','12h','13h','14h','15h','16h','17h','18h','19h','20h','21h','22h'],
 		datasets: [{
