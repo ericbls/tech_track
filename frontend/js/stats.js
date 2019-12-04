@@ -116,14 +116,14 @@ function lineChart(){
 		}).done(function(resp){
 			resp.forEach(function(item,index){
 				deltat[index]=(item.soma_por_dia)/3600;
-				datas[index]= (item.data_maq)//.toDateString();
+				datas[index]= item.data_maq//.toDateString();
 			})
 			var ctx = $("#lineChart");
 			var varChart = new Chart(ctx,{
 				type: 'line',
 				data: {
 					labels:datas,
-					datasets:{
+					datasets:[{
 							label:"",
 							data:deltat,
 							pointStyle:'crossRot',
@@ -133,7 +133,7 @@ function lineChart(){
 							pointBorderWidth:2,
 							pointRadius:5,
 							pointBackgroundColor:"rgba(100,60,140,1)"
-						}
+						}]
 				},
 				options: {
 					title:{
