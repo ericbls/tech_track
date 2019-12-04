@@ -175,7 +175,7 @@ function barChart(){
 	let time_sum = [];
 	$.ajax({
 			method: "GET",
-			url: "/techtrack/func/barra?id_maquina=" + maquina
+			url: "/techtrack/func/dados/barra?id_maquina=" + maquina
 		}).done(function(resp){
 			resp.forEach(function(item,index){
 			let finish_time = new Date(item.data_maq);
@@ -197,33 +197,35 @@ function barChart(){
 				time_sum[i] += 3600;
 			}
 		})
-	})
-	console.log(time_sum);
-	var total_sum = time_sum.reduce((a,b) => a + b, 0)
-	var relative_sum=[];
-	console.log(total_sum);
-	time_sum.forEach(function(item,index){
-		relative_sum[index] = item/total_sum;
-	})
-	console.log(relative_sum);
-	var barChartData = {
-		labels: ['7h','8h','9h','10h','11h','12h','13h','14h','15h','16h','17h','18h','19h','20h','21h','22h'],
-		datasets: [{
-			label: 'Running',
-			backgroundColor: '#55CACE',
-			data: relative_sum
-		}]
-	};
-	var ctx2 = $("#barChart");
-	var myChart = new Chart(ctx2, {
-		type: 'bar',
-		data: barChartData,
-		options: {
-			scales: {
-				xAxes: [{ stacked: false }],
-				yAxes: [{ stacked: false }]
+		console.log(time_sum);
+		var total_sum = time_sum.reduce((a,b) => a + b, 0)
+		var relative_sum=[];
+		console.log(total_sum);
+		time_sum.forEach(function(item,index){
+			relative_sum[index] = item/total_sum;
+		})
+		console.log(relative_sum);
+		var barChartData = {
+			labels: ['7h','8h','9h','10h','11h','12h','13h','14h','15h','16h','17h','18h','19h','20h','21h','22h'],
+			datasets: [{
+				label: 'Running',
+				backgroundColor: '#55CACE',
+				data: relative_sum
+			}]
+		};
+		var ctx2 = $("#barChart");
+		var myChart = new Chart(ctx2, {
+			type: 'bar',
+			data: barChartData,
+			options: {
+				scales: {
+					xAxes: [{ stacked: false }],
+					yAxes: [{ stacked: false }]
+				}
 			}
-		}
+		});
+	}).fail(function(mensagem){
+		alert(mensagem);
 	});
 };
 
