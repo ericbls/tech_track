@@ -114,10 +114,12 @@ function lineChart(){
 			method: "GET",
 			url: "/techtrack/func/dados/linha?id_maquina=" + maquina + "&data_inicial=" + start_date + "&data_final=" + end_date
 		}).done(function(resp){
+			let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 			resp.forEach(function(item,index){
 				deltat[index]=(item.soma_por_dia)/3600;
+				console.log(item.data_maq);
 				let temp = new Date(item.data_maq);
-				let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+				console.log(temp);
 				let temp2 = temp.getDate() + " " + months[temp.getMonth()];
 				datas[index]= temp2;
 			})
