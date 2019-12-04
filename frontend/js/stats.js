@@ -173,7 +173,7 @@ function lineChart(){
 		}
 	});
 };
-
+/*
 function barChart(){
 	$.ajax({
 			method: "GET",
@@ -213,12 +213,12 @@ function barChart(){
 		}
 	});
 };
-
+*/
 $(document).ready(function(){
 	buildList();
 	$("#reloadGraphs").click(function(){
 		lineChart();
-		barChart();
+		//barChart();
 	});
 	setInterval(function(){
 		updateList()
