@@ -20,6 +20,18 @@ function get_last_data(req,res){
 	});
 }
 
+function get_last_data_stats(req,res){
+	let dados_numerados = "SELECT *,ROW_NUMBER() OVER(PARTITION BY id_maquina ORDER BY data_maq DESC) AS rn FROM dados_maquinas";
+        let maquinas_n_del = "SELECT * FROM maquinas_registradas WHERE deletado=false";
+        connection.query("SELECT m.id,m.fabricante,m.modelo,estado as run,data_maq FROM (" + dados_numerados + ") AS d JOIN (" + maquinas_n_del + ") AS m ON d.id_maquina=m.id WHERE rn=1", function(error, results){
+		if(!error){
+			res.json(results);
+		} else {
+			res.json([]);
+		}
+	});
+}
+
 function get_data(req,res){
 	connection.query('SELECT * FROM dados_maquinas WHERE deletado=0', function(error, results){
 		if(error){
@@ -146,4 +158,4 @@ function update_machine(req,res){
 	})
 }
 
-module.exports = {get_data, get_last_data, get_machine, get_dados_grafico_linha, get_dados_grafico_barras, add_machine, add_data, delete_machine, update_machine}
+module.exports = {get_data, get_last_data, get_last_data_stats, get_machine, get_dados_grafico_linha, get_dados_grafico_barras, add_machine, add_data, delete_machine, update_machine}
