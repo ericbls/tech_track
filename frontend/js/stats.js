@@ -117,9 +117,9 @@ function lineChart(){
 			let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 			resp.forEach(function(item,index){
 				deltat[index]=(item.soma_por_dia)/3600;
-				console.log(item.data_maq.slice(0,-1) + "-03:00");
+				//console.log(item.data_maq.slice(0,-1) + "-03:00");
 				let temp = new Date(item.data_maq.slice(0,-1) + "-03:00");
-				console.log(temp);
+				//console.log(temp);
 				let temp2 = temp.getDate() + " " + months[temp.getMonth()];
 				datas[index]= temp2;
 			})
@@ -182,7 +182,8 @@ function barChart(){
 			resp.forEach(function(item,index){
 				if(item.deltat != 0){
 					console.log(item.data_maq);
-					let finish_time = new Date("2000-06-01T" + item.data_maq + "-03:00");
+					let time_zone = new Date().getTimezoneOffset()/60;
+					let finish_time = new Date("2000-06-01T" + item.data_maq + "-0"+ time_zone +":00");
 					console.log(finish_time);
 					let finish_hour = finish_time.getHours();
 					let finish_min = finish_time.getMinutes();
@@ -231,8 +232,6 @@ function barChart(){
 			}
 		});
 	}).fail(function(mensagem){
-		console.log(mensagem.fail);
-		console.log(mensagem.status);
 		alert(mensagem.responseText);
 	});
 };
