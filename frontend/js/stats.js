@@ -178,7 +178,7 @@ function barChart(){
 			url: "/techtrack/func/barra?id=" + maquina
 		}).done(function(resp){
 			resp.forEach(function(item,index){
-			let finish_time new Date(item.data_maq);
+			let finish_time = new Date(item.data_maq);
 			let finish_hour = finish_time.getHour();
 			let finish_min = finish_time.getMinutes();
 			let finish_sec = finish_time.getSeconds();
@@ -191,17 +191,20 @@ function barChart(){
 			time_sum[idx1] += ret1;
 
 			let idx2 = finish_hour - 7;
-			let t2 = (finish_hour+1)
-			let ret2 = t2*3600-finish_sec_sum;
+			let ret2 = finish_min*60+finish_sec;
 			time_sum[idx2] += ret2;
+
+			for(int i=idx1+1;i<dx2;i++){
+				time_sum[i] += 3600;
+			}
 		})
 	})
 	console.log(time_sum);
-	var total_sum = arr => arr.reduce((a,b) => a + b, 0)
+	var total_sum = time_sum.reduce((a,b) => a + b, 0)
+	var relative_sum=[];
 	console.log(total_sum);
 	time_sum.forEach(function(item,index){
-		let relative_sum = time_sum.item/total_sum;
-		time_sum.item=relative_sum;
+		relative_sum[index] = item/total_sum;
 	})
 	console.log(time_sum);
 	var barChartData = {
@@ -209,7 +212,7 @@ function barChart(){
 		datasets: [{
 			label: 'Running',
 			backgroundColor: '#55CACE',
-			data: time_sum
+			data: relative_sum
 		}]
 	};
 	var ctx2 = $("#barChart");
