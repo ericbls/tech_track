@@ -131,7 +131,7 @@ function lineChart(){
 					datasets:[{
 							label:"",
 							data:deltat,
-							pointStyle:'crossRot',
+							pointStyle:'circle',
 							borderColor:"rgba(100,60,140,1)",
 							backgroundColor:"rgba(100,60,140,0.2)",
 							pointBorder:"rgba(100,60,140,1)",
