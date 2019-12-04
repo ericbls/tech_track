@@ -117,8 +117,8 @@ function lineChart(){
 			let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 			resp.forEach(function(item,index){
 				deltat[index]=(item.soma_por_dia)/3600;
-				console.log(item.data_maq.slice(0,10));
-				let temp = new Date(item.data_maq.slice(0,10));
+				console.log(item.data_maq.slice(0,-1) + "-03:00");
+				let temp = new Date(item.data_maq.slice(0,-1) + "-03:00");
 				console.log(temp);
 				let temp2 = temp.getDate() + " " + months[temp.getMonth()];
 				datas[index]= temp2;
@@ -182,7 +182,7 @@ function barChart(){
 			resp.forEach(function(item,index){
 				if(item.deltat != 0){
 					console.log(item.data_maq);
-					let finish_time = new Date("2000-01-01T" + item.data_maq + "-00:00");
+					let finish_time = new Date("2000-01-01T" + item.data_maq + "-03:00");
 					console.log(finish_time);
 					let finish_hour = finish_time.getHours();
 					let finish_min = finish_time.getMinutes();
