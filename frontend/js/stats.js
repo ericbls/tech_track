@@ -180,25 +180,29 @@ function barChart(){
 			url: "/techtrack/func/dados/barra?id_maquina=" + maquina2
 		}).done(function(resp){
 			resp.forEach(function(item,index){
-				let finish_time = new Date("2000-01-01T" + item.data_maq + "Z")
-				let finish_hour = finish_time.getHours();
-				let finish_min = finish_time.getMinutes();
-				let finish_sec = finish_time.getSeconds();
-				let finish_sec_sum = finish_hour*3600+finish_min*60+finish_sec;
-				let begin_sec_sum = finish_sec_sum - item.deltaT;
-				let begin_hour = Math.floor(begin_sec_sum/3600);
-				let idx1 = begin_hour - 7;
-				let t1 = (begin_hour+1)
-				let ret1 = t1*3600-begin_sec_sum;
-				time_sum[idx1] += ret1;
+				if(item.deltat != 0){
+					console.log(item.data_maq);
+					let finish_time = new Date("2000-01-01T" + item.data_maq + "Z");
+					console.log(finish_time);
+					let finish_hour = finish_time.getHours();
+					let finish_min = finish_time.getMinutes();
+					let finish_sec = finish_time.getSeconds();
+					let finish_sec_sum = finish_hour*3600+finish_min*60+finish_sec;
+					let begin_sec_sum = finish_sec_sum - item.deltaT;
+					let begin_hour = Math.floor(begin_sec_sum/3600);
+					let idx1 = begin_hour - 7;
+					let t1 = (begin_hour+1)
+					let ret1 = t1*3600-begin_sec_sum;
+					time_sum[idx1] += ret1;
 
-				let idx2 = finish_hour - 7;
-				let ret2 = finish_min*60+finish_sec;
-				time_sum[idx2] += ret2;
-				for(var i=idx1+1; i<idx2; i++){
-					time_sum[i] += 3600;
+					let idx2 = finish_hour - 7;
+					let ret2 = finish_min*60+finish_sec;
+					time_sum[idx2] += ret2;
+					for(var i=idx1+1; i<idx2; i++){
+						time_sum[i] += 3600;
+					}
 				}
-			})
+		})
 
 		var total_sum = time_sum.reduce(function(a,b){
 			return a + b;
