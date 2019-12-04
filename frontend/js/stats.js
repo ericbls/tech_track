@@ -225,6 +225,7 @@ function barChart(){
 			}
 		});
 	}).fail(function(mensagem){
+		console.log("Merda");
 		alert(mensagem);
 	});
 };
