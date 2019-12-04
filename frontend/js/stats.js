@@ -115,19 +115,18 @@ function lineChart(){
 			url: "/techtrack/func/dados/linha?id_maquina=" + maquina + "&data_inicial=" + start_date + "&data_final=" + end_date
 		}).done(function(resp){
 			resp.forEach(function(item,index){
-				deltat[index]=item.soma_por_dia;
-				datas[index]=item.data_maq;
+				deltat[index]=(item.soma_por_dia)/3600;
+				datas[index]= Date(item.data_maq).toDateString();
 			})
 			var ctx = $("#lineChart");
 			var varChart = new Chart(ctx,{
 				type: 'line',
 				data: {
 					labels:datas,
-					datasets:[
-						{
+					datasets:{
 							label:"",
 							data:deltat,
-							pointStyle:'cross7Rot',
+							pointStyle:'crossRot',
 							borderColor:"rgba(100,60,140,1)",
 							backgroundColor:"rgba(100,60,140,0.2)",
 							pointBorder:"rgba(100,60,140,1)",
@@ -135,7 +134,6 @@ function lineChart(){
 							pointRadius:5,
 							pointBackgroundColor:"rgba(100,60,140,1)"
 						}
-					]
 				},
 				options: {
 					title:{
@@ -154,11 +152,11 @@ function lineChart(){
 							display:true,
 							scaleLable:{
 								display:true,
-								labelString:'Horas'
+								labelString:"Horas"
 							},
 							ticks:{
 								beginAtZero:true,
-								max:100
+								max:10000
 								//stepsize:5
 							}
 						}]
