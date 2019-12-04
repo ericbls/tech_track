@@ -3,7 +3,7 @@ var url =  "http://18.223.194.18"
 function buildList(){
 	$.ajax({
 		method: "GET",
-		url: url + "/techtrack/func/dados"
+		url: url + "/techtrack/func/dados/stats"
 	})
 	.done(function(resp){
 		$("#listTable tbody").empty();
@@ -12,11 +12,16 @@ function buildList(){
 		var drop_html = '';
 		resp.forEach(function(item, index){
 			table_html += "<tr>";
-			table_html += "<th>" + index + "</th>";
 			table_html += "<th>" + item.id + "</th>";
-			table_html += "<th>" + item.ip + "</th>";
-			table_html += "<th>" + item.run + "</th>";
-			table_html += "<th>" + item.data_maq + "</th>";
+			table_html += "<th>" + item.fabricante + "</th>";
+			table_html += "<th>" + item.modelo + "</th>";
+			if(item.run == 1){
+				table_html += "<th>Em Uso</th>";
+			} else {
+				table_html += "<th>Ocioso</th>";
+			}
+			var data_maq = new Date(item.data_maq);
+			table_html += "<th>" + data_maq.toUTCString() + "</th>";
 			table_html += "</tr>"
 			drop_html += "<a class=\"dropdown-item\" href=\"#\">" + item.id + "</a>"
 		})
@@ -61,7 +66,7 @@ function buildList(){
 function updateList(){
 	$.ajax({
 		method: "GET",
-		url: url + "/techtrack/func/dados"
+		url: url + "/techtrack/func/dados/stats"
 	})
 	.done(function(resp){
 		$("#listTable tbody").empty();
@@ -70,15 +75,20 @@ function updateList(){
 		var drop_html = '';
 		resp.forEach(function(item, index){
 			table_html += "<tr>";
-			table_html += "<th>" + index + "</th>";
 			table_html += "<th>" + item.id + "</th>";
-			table_html += "<th>" + item.ip + "</th>";
-			table_html += "<th>" + item.run + "</th>";
-			table_html += "<th>" + item.data_maq + "</th>";
+			table_html += "<th>" + item.fabricante + "</th>";
+			table_html += "<th>" + item.modelo + "</th>";
+			if(item.run == 1){
+				table_html += "<th>Em Uso</th>";
+			} else {
+				table_html += "<th>Ocioso</th>";
+			}
+			var data_maq = new Date(item.data_maq);
+			table_html += "<th>" + data_maq.toUTCString() + "</th>";
 			table_html += "</tr>"
-
 			drop_html += "<a class=\"dropdown-item\" href=\"#\">" + item.id + "</a>"
 		})
+
 		$("#listTable tbody").html(table_html);
 		$("#dropItems").html(drop_html);
 		//atualizando o dropdown

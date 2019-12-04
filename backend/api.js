@@ -9,6 +9,7 @@ exports.build = function(server){
     .post('/techtrack/func/cadastro/update', functions.update_machine)
     .get('/techtrack/func/dados', functions.get_last_data)
     .post('/techtrack/func/dados', functions.add_data)
+    .get('/techtrack/func/dados/stats', functions.get_last_data_stats)
     .get('/techtrack/func/dados/linha', functions.get_dados_grafico_linha)
     .get('/techtrack/func/dados/barras', functions.get_dados_grafico_barras)
 
