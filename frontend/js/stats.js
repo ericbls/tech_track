@@ -225,7 +225,7 @@ function barChart(){
 			}
 		});
 	}).fail(function(mensagem){
-		//console.log(mensagem.keys());
+		console.log(Object.keys(mensagem));
 		alert(mensagem);
 	});
 };
