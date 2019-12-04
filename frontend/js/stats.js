@@ -125,8 +125,6 @@ function lineChart(){
 					labels:datas,
 					datasets:[{
 							label:"",
-							xAxisID:"Datas",
-							yAxisID:"Horas",
 							data:deltat,
 							pointStyle:'crossRot',
 							borderColor:"rgba(100,60,140,1)",
@@ -144,6 +142,7 @@ function lineChart(){
 					},
 					scales:{
 						xAxes:[{
+							xAxisID:"Datas",
 							display:true,
 							scaleLable:{
 								display:true,
@@ -151,6 +150,7 @@ function lineChart(){
 							}
 						}],
 						yAxes:[{
+							yAxisID:"Horas",
 							display:true,
 							scaleLable:{
 								display:true,
