@@ -195,9 +195,10 @@ function barChart(){
 				time_sum[idx2] += ret2;
 				for(var i=idx1+1; i<idx2; i++){
 					time_sum[i] += 3600;
-			}
+				}
+				console.log(time_sum);
 		})
-		console.log(time_sum);
+
 		var total_sum = time_sum.reduce(function(a,b){
 			return a + b;
 		}, 0);
