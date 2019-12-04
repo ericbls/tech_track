@@ -180,7 +180,8 @@ function barChart(){
 			resp.forEach(function(item,index){
 				console.log("data_maq: "+item.data_maq);
 				console.log("deltaT: "+item.deltaT);
-				let finish_time = new Date("0000-00-00T" + item.data_maq + "Z");
+				console.log("2000-01-01T" + item.data_maq + "Z");
+				let finish_time = new Date("2000-01-01T" + item.data_maq + "Z");
 				console.log("finish_time: "+finish_time);
 				let finish_hour = finish_time.getHours();
 				let finish_min = finish_time.getMinutes();
