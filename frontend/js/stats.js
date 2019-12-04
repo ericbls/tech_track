@@ -172,7 +172,7 @@ function lineChart(){
 
 function barChart(){
 	let maquina2 = $("#dropdownMenuButton").text();
-	let time_sum = [];
+	let time_sum = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 	$.ajax({
 			method: "GET",
 			url: "/techtrack/func/dados/barra?id_maquina=" + maquina2
@@ -197,7 +197,7 @@ function barChart(){
 					time_sum[i] += 3600;
 				}
 				console.log(time_sum);
-		})
+			})
 
 		var total_sum = time_sum.reduce(function(a,b){
 			return a + b;
