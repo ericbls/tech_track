@@ -178,35 +178,38 @@ function barChart(){
 			url: "/techtrack/func/dados/barra?id_maquina=" + maquina2
 		}).done(function(resp){
 			resp.forEach(function(item,index){
-			console.log(item.data_maq);
-			console.log(item.deltaT);
+			console.log("data_maq: "+item.data_maq);
+			console.log("deltaT: "+item.deltaT);
 			let finish_time = new Date(item.data_maq);
+			console.log("finish_time: "+finish_time);
 			let finish_hour = finish_time.getHours();
 			let finish_min = finish_time.getMinutes();
 			let finish_sec = finish_time.getSeconds();
 			let finish_sec_sum = finish_hour*3600+finish_min*60+finish_sec;
+			console.log("finish_sec_sum: "+finish_sec_sum);
 			let begin_sec_sum = finish_sec_sum - item.deltaT;
+			console.log("begin_sec_sum: "+begin_sec_sum);
 			let begin_hour = Math.floor(begin_sec_sum/3600);
 			let idx1 = begin_hour - 7;
 			let t1 = (begin_hour+1)
 			let ret1 = t1*3600-begin_sec_sum;
+			console.log("ret1: "+ret1);
 			time_sum[idx1] += ret1;
 
 			let idx2 = finish_hour - 7;
 			let ret2 = finish_min*60+finish_sec;
+			console.log("ret2: "+ret2);
 			time_sum[idx2] += ret2;
 			for(var i=idx1+1; i<idx2; i++){
 				time_sum[i] += 3600;
 			}
 		})
-		console.log(time_sum);
 		var total_sum = time_sum.reduce((a,b) => a + b, 0)
 		var relative_sum=[];
-		console.log(total_sum);
+		console.log("total_sum: "+total_sum);
 		time_sum.forEach(function(item,index){
 			relative_sum[index] = item/total_sum;
 		})
-		console.log(relative_sum);
 		var barChartData = {
 			labels: ['7h','8h','9h','10h','11h','12h','13h','14h','15h','16h','17h','18h','19h','20h','21h','22h'],
 			datasets: [{
