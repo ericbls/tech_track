@@ -108,9 +108,6 @@ function lineChart(){
 	var maquina = $("#dropdownMenuButton").text();
 	var start_date = $("#start_date").val();
 	var end_date = $("#end_date").val();
-	console.log(maquina);
-	console.log(start_date);
-	console.log(end_date);
 	var datas = [];
 	var deltat = [];
 	$.ajax({
@@ -177,7 +174,6 @@ function lineChart(){
 	});
 };
 
-/*
 function barChart(){
 	$.ajax({
 			method: "GET",
@@ -217,7 +213,6 @@ function barChart(){
 		}
 	});
 };
-*/
 
 $(document).ready(function(){
 	buildList();
