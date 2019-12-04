@@ -118,7 +118,7 @@ function lineChart(){
 				deltat[index]=(item.soma_por_dia)/3600;
 				let temp = new Date(item.data_maq);
 				let temp2 = temp.getDate() + "/" + temp.getMonth();
-				datas[index]= temp.toDateString();
+				datas[index]= temp2;
 			})
 			var ctx = $("#lineChart");
 			var varChart = new Chart(ctx,{
