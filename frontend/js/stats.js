@@ -1,41 +1,111 @@
-function updateList(){
+var url =  "http://18.223.194.18"
+
+function buildList(){
 	$.ajax({
 		method: "GET",
-		url: "/techtrack/func/dados"
-	}).done(function(resp){
+		url: url + "/techtrack/func/dados"
+	})
+	.done(function(resp){
 		$("#listTable tbody").empty();
-    $("#dropItems").empty();
+		$("#dropItems").empty();
 		var table_html = '';
 		var drop_html = '';
-
 		resp.forEach(function(item, index){
 			table_html += "<tr>";
 			table_html += "<th>" + index + "</th>";
 			table_html += "<th>" + item.id + "</th>";
 			table_html += "<th>" + item.ip + "</th>";
 			table_html += "<th>" + item.run + "</th>";
-			table_html += "<th>" + item.data + "</th>";
+			table_html += "<th>" + item.data_maq + "</th>";
 			table_html += "</tr>"
-
-      drop_html += "<a class=\"dropdown-item\" href=\"#\">" + item.id + "</a>"
+			drop_html += "<a class=\"dropdown-item\" href=\"#\">" + item.id + "</a>"
 		})
 		$("#listTable tbody").html(table_html);
-    $("#dropItems").html(drop_html);
-	}).fail(function(){
-		alert("error");
+		$("#dropItems").html(drop_html);
+		$("#dropdownMenuButton").html(resp[0].id)
+		//atualizando o dropdown
+		$("#dropItems a").click(function(e){
+			e.preventDefault();
+			var selText = $(this).text();
+			$("#dropdownMenuButton").text(selText);
+			$("#dropdownMenuButton").val(selText);
+		})
 	})
+	.fail(function(mensagem){
+		alert(mensagem);
+	});
+
+  var start_date_input=$('input[name="start_date"]');
+  var start_container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+  var start_options={
+		todayBtn: true,
+    format: 'yyyy-mm-dd',
+    container: start_container,
+    todayHighlight: true,
+    autoclose: true,
+  };
+  start_date_input.datepicker(start_options);
+
+	var end_date_input=$('input[name="end_date"]');
+	var end_container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+	var end_options={
+		todayBtn: true,
+		format: 'yyyy-mm-dd',
+		container: end_container,
+		todayHighlight: true,
+		autoclose: true,
+	};
+	end_date_input.datepicker(end_options);
+};
+
+function updateList(){
+	$.ajax({
+		method: "GET",
+		url: url + "/techtrack/func/dados"
+	})
+	.done(function(resp){
+		$("#listTable tbody").empty();
+		$("#dropItems").empty();
+		var table_html = '';
+		var drop_html = '';
+		resp.forEach(function(item, index){
+			table_html += "<tr>";
+			table_html += "<th>" + index + "</th>";
+			table_html += "<th>" + item.id + "</th>";
+			table_html += "<th>" + item.ip + "</th>";
+			table_html += "<th>" + item.run + "</th>";
+			table_html += "<th>" + item.data_maq + "</th>";
+			table_html += "</tr>"
+
+			drop_html += "<a class=\"dropdown-item\" href=\"#\">" + item.id + "</a>"
+		})
+		$("#listTable tbody").html(table_html);
+		$("#dropItems").html(drop_html);
+		//atualizando o dropdown
+		$("#dropItems a").click(function(e){
+			e.preventDefault();
+			var selText = $(this).text();
+			$("#dropdownMenuButton").text(selText);
+			$("#dropdownMenuButton").val(selText);
+		});
+	})
+	.fail(function(mensagem){
+		alert(mensagem);
+	});
 };
 
 function lineChart(){
-	/*
-	var data = [];
+	var maquina = $("#dropdownMenuButton").text();
+	var start_date = $("#start_date").text();
+	var end_date = $("#end_date").text();
 	$.ajax({
 			method: "GET",
-			url: "/techtrack/func/graph1?id=" + maquina + "&data_inicial=" + start_date + "&dafa_final=" + end_date
+			url: "/techtrack/func/dados/linha?id_maquina=" + maquina + "&data_inicial=" + start_date + "&dafa_final=" + end_date
 		}).done(function(resp){
 			//$("#listTable tbody").empty();
-		})
-		*/
+		}).fail(function(mensagem){
+			alert(mensagem);
+		});
 	var ctx = $("#lineChart");
 	var varChart = new Chart(ctx,{
 		type: 'line',
@@ -104,7 +174,7 @@ function barChart(){
 	/*
 	$.ajax({
 			method: "GET",
-			url: "/techtrack/func/graph2?id=" + maquina
+			url: "/techtrack/func/barra?id=" + maquina
 		}).done(function(resp){
 			//$("#listTable tbody").empty();
 		})
@@ -129,7 +199,7 @@ function barChart(){
 			]
 		}]
 	};
-	var ctx2 = $('#barChart');
+	var ctx2 = $("#barChart");
 	var myChart = new Chart(ctx2, {
 		type: 'bar',
 		data: barChartData,
@@ -142,24 +212,16 @@ function barChart(){
 	});
 };
 
-function updateCharts(){
-	$(".dropdown-item").click(function(e){
-    e.preventDefault();
-		console.log("AQUIIIIIIIII")
-    var selText = $(this).text();
-		console.log(selText);
-    $("#dropdownMenuButton").text(selText);
-    $("#dropdownMenuButton").val(selText);
-    //lineChart(selText);
-    //barChart(selText);
-	});
-};
+	//lineChart(selecText,selecStart,selecEnd);
+	//barChart(selText);
 
 $(document).ready(function(){
-	updateCharts();
-	lineChart();
-	barChart();
+	buildList();
+	$("#reloadGraphs").click(function(){
+		lineChart();
+		barChart();
+	});
 	setInterval(function(){
-		updateList();
+		updateList()
 	},5000);
 })

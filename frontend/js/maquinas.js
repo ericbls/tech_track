@@ -1,3 +1,5 @@
+var url =  "http://http://18.223.194.18"
+
 function success(){
 	var alert  = '<div class="alert alert-success alert-dismissible fade show" role="alert">O cadastro foi realizado com sucesso!'
 	    alert += '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span> </button></div>';
@@ -15,7 +17,7 @@ function fail(){
 function updateList(){
 	$.ajax({
 		method: "GET",
-		url: "/techtrack/func/cadastro",
+		url: url + "/techtrack/func/cadastro",
 	}).done(function(resp){
 		$("#listTable tbody").empty()
 		var table_html = ''
@@ -47,7 +49,7 @@ function submitAdd(){
 
 		var request = $.ajax({
 			method: "POST",
-			url: "/techtrack/func/cadastro/add",
+			url: url + "/techtrack/func/cadastro/add",
 			data: JSON.stringify(addJson),
 			contentType: "application/json",
 			dataType:"json"
@@ -93,7 +95,7 @@ function submitDel(){
 
 		var request = $.ajax({
 			method: "POST",
-			url: "/techtrack/func/cadastro/del",
+			url: url + "/techtrack/func/cadastro/del",
 			data: JSON.stringify(delJson),
 			contentType: "application/json",
 			dataType:"json"
@@ -126,7 +128,7 @@ function submitMod(){
 
 		var request = $.ajax({
 			method: "POST",
-			url: "/techtrack/func/cadastro/update",
+			url: url + "/techtrack/func/cadastro/update",
 			data: JSON.stringify(modJson),
 			contentType: "application/json",
 			dataType:"json"
