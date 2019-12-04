@@ -43,7 +43,7 @@ function get_data(req,res){
 }
 
 function get_dados_grafico_linha(req,res){
-    connection.query('SELECT DATE(data_maq) as data_maq, sum(deltaT) as soma_por_dia FROM dados_maquinas WHERE data_maq BETWEEN ' + req.query.data_inicial + ' AND ' + req.query.data_final + ' AND id_maquina=' + req.query.id_maquina + ' AND estado=0 GROUP BY DAY(data_maq)', function(error, results){
+    connection.query('SELECT DATE(data_maq) as data_maq, sum(deltaT) as soma_por_dia FROM dados_maquinas WHERE data_maq BETWEEN "' + req.query.data_inicial + '" AND "' + req.query.data_final + '" AND id_maquina=' + req.query.id_maquina + ' AND estado=0 GROUP BY DATE(data_maq)', function(error, results){
 		if(error){
 			console.log(error);
 			res.sendStatus(500);
