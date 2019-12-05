@@ -119,26 +119,33 @@ function get_machine(req,res){
 }
 
 function add_machine(req,res){
-	let values = '"' + req.body.ip + '","' + req.body.fabricante + '","' + req.body.modelo + '"';
-
-	connection.query('INSERT INTO maquinas_registradas(ip, fabricante, modelo) VALUES (' + values + ')', function(error){
-	 	if (error){
-	 		res.sendStatus(500);
-	 	} else {
-			connection.query('SELECT id FROM maquinas_registradas WHERE ip="' + req.body.ip + '"', function(error, results){
-				if(error){
-					console.log(error);
-				} else {
-					let data = new Date();
-					let temp = results[0].id + ',"' + data.getFullYear() + '-' + (data.getMonth()+1) + '-' + data.getDate() + ' 00:00:00"';
-					connection.query('INSERT INTO dados_maquinas (id_maquina,data_maq) VALUES (' + temp + ')', function(error){
-						if(error) console.log(error);
+	connection.query('SELECT id FROM maquinas_registradas WHERE ip="' + req.body.ip + '" AND deletado=0', function(error, results){
+		console.log(error);
+		console.log(results);
+		if(error || (results.length > 0)) {
+			res.sendStatus(500);
+		} else {
+			let values = '"' + req.body.ip + '","' + req.body.fabricante + '","' + req.body.modelo + '"';
+			connection.query('INSERT INTO maquinas_registradas(ip, fabricante, modelo) VALUES (' + values + ')', function(error){
+	 			if (error){
+	 				res.sendStatus(500);
+		 		} else {
+					connection.query('SELECT id FROM maquinas_registradas WHERE ip="' + req.body.ip + '" AND deletado=0', function(error, results){
+						if(error){
+							console.log(error);
+						} else {
+							let data = new Date();
+							let temp = results[0].id + ',"' + data.getFullYear() + '-' + (data.getMonth()+1) + '-' + data.getDate() + ' 00:00:00"';
+							connection.query('INSERT INTO dados_maquinas (id_maquina,data_maq) VALUES (' + temp + ')', function(error){
+								if(error) console.log(error);
+							});
+						}
 					});
+					res.send(req.body);
 				}
 			});
-			res.send(req.body);
 		}
-	 });
+	});
 }
 
 function delete_machine(req,res){
@@ -153,8 +160,9 @@ function delete_machine(req,res){
 
 function update_machine(req,res){
 	let values = '"' + req.body.ip +'","' + req.body.fabricante +'","' + req.body.modelo + '"';
-	connection.query('UPDATE maquinas_registradas SET (ip, fabricante, modelo) VALUES (' + values +') WHERE id=' + req.body.id, function(error, results){
+	connection.query('UPDATE maquinas_registradas SET ip="' + req.body.ip + '",fabricante="' + req.body.fabricante + '",modelo="' + req.body.modelo + '" WHERE id=' + req.body.id, function(error, results){
 		if(error){
+			console.log(error);
 			res.sendStatus(500);
 		} else {
 			res.send(results);
