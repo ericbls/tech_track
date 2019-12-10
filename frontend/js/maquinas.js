@@ -28,6 +28,7 @@ function updateList(){
 			table_html += "<th>" + item.fabricante + "</th>"
 			table_html += "<th>" + item.modelo + "</th>"
 			table_html += "<th>" + item.ip + "</th>"
+			table_html += "<th> <button type=\"button\" class=\"btn btn-danger\"></button> </th>"
 			table_html += "</tr>"
 		})
 		$("#listTable tbody").html(table_html);
