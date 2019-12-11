@@ -85,7 +85,7 @@ function submitAdd(){
 }
 
 function submitDel(){
-	$(".btn btn-danger").on('click',function(event){
+	$(".btn").on('click',function(event){
 		console.log($(this).parentElement);
 	})
 
