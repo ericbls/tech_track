@@ -86,7 +86,7 @@ function submitAdd(){
 
 function submitDel(){
 	$("#listTable tbody").on('click','button',function(event){
-		console.log($(this));
+		console.log($(this).parentNode);
 		console.log("hello world");
 	})
 
