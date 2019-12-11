@@ -32,6 +32,7 @@ function updateList(){
 			table_html += "</tr>"
 		})
 		$("#listTable tbody").html(table_html);
+		eva.replace();
 	}).fail(function(){
 		alert("error");
 	})
