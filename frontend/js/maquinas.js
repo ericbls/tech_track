@@ -28,7 +28,7 @@ function updateList(){
 			table_html += "<th>" + item.fabricante + "</th>"
 			table_html += "<th>" + item.modelo + "</th>"
 			table_html += "<th>" + item.ip + "</th>"
-			table_html += "<th> <button type=\"button\" class=\"btn btn-danger\"><i data-eva=\"trash\" data-eva-fill=\"#ffffff\" data-eva-height=\"24\" data-eva-width=\"24\" data-eva-animation=\"flip\"></i></button> </th>"
+			table_html += "<th> <button type=\"button\" class=\"btn btn-danger\"><i data-eva=\"trash\" data-eva-fill=\"#ffffff\" data-eva-height=\"18\" data-eva-width=\"18\" data-eva-animation=\"flip\"></i></button> </th>"
 			table_html += "</tr>"
 		})
 		$("#listTable tbody").html(table_html);
