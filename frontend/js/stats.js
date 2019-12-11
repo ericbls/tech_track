@@ -11,17 +11,17 @@ function buildList(){
 		var table_html = '';
 		var drop_html = '';
 		resp.forEach(function(item, index){
-			table_html += "<tr>";
-			table_html += "<th>" + item.id + "</th>";
-			table_html += "<th>" + item.fabricante + "</th>";
-			table_html += "<th>" + item.modelo + "</th>";
+			table_html += "<tr class=\"clickable-row\">";
+			table_html += "<td>" + item.id + "</td>";
+			table_html += "<td>" + item.fabricante + "</td>";
+			table_html += "<td>" + item.modelo + "</td>";
 			if(item.run == 1){
-				table_html += "<th>Em Uso</th>";
+				table_html += "<td>Em Uso</td>";
 			} else {
-				table_html += "<th>Ocioso</th>";
+				table_html += "<td>Ocioso</td>";
 			}
 			var data_maq = new Date(item.data_maq);
-			table_html += "<th>" + data_maq.toUTCString() + "</th>";
+			table_html += "<td>" + data_maq.toUTCString() + "</td>";
 			table_html += "</tr>"
 			drop_html += "<a class=\"dropdown-item\" href=\"#\">" + item.id + "</a>"
 		})
@@ -74,17 +74,17 @@ function updateList(){
 		var table_html = '';
 		var drop_html = '';
 		resp.forEach(function(item, index){
-			table_html += "<tr>";
-			table_html += "<th>" + item.id + "</th>";
-			table_html += "<th>" + item.fabricante + "</th>";
-			table_html += "<th>" + item.modelo + "</th>";
+			table_html += "<tr class=\"clickable-row\">";
+			table_html += "<td>" + item.id + "</td>";
+			table_html += "<td>" + item.fabricante + "</td>";
+			table_html += "<td>" + item.modelo + "</td>";
 			if(item.run == 1){
-				table_html += "<th>Em Uso</th>";
+				table_html += "<td>Em Uso</td>";
 			} else {
-				table_html += "<th>Ocioso</th>";
+				table_html += "<td>Ocioso</td>";
 			}
 			var data_maq = new Date(item.data_maq);
-			table_html += "<th>" + data_maq.toUTCString() + "</th>";
+			table_html += "<td>" + data_maq.toUTCString() + "</td>";
 			table_html += "</tr>"
 			drop_html += "<a class=\"dropdown-item\" href=\"#\">" + item.id + "</a>"
 		})
@@ -300,7 +300,9 @@ $(document).ready(function(){
 				}
 			}
 		});
-		
+	$("#listTable").on("click", ".clickable-row", function(event){
+		console.log($(this)[0].firstElementChild.innerHTML);
+	});
 	$("#reloadGraphs").click(function(){
 		varLineChart.destroy();
 		varBarChart.destroy();
