@@ -85,8 +85,9 @@ function submitAdd(){
 }
 
 function submitDel(){
-	$(".btn").on('click',function(event){
+	$("listTable tbody").on('click','button',function(event){
 		console.log($(this).parentElement);
+		console.log("hello world");
 	})
 
 	$("#DelForm").on('submit',function(event){
