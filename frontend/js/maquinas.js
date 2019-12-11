@@ -85,7 +85,7 @@ function submitAdd(){
 }
 
 function submitDel(){
-	$("#listTable .button").on('click',function(event){
+	$(".btn btn-danger").on('click',function(event){
 		console.log($(this).parentElement);
 	})
 
