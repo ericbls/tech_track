@@ -86,8 +86,28 @@ function submitAdd(){
 
 function submitDel(){
 	$("#listTable tbody").on('click','button',function(event){
-		console.log($(this).parents('tr').data());
-		console.log("hello world");
+		var delJson = {};
+		delJson["id"]=$(this)[0].parentElement.parentElement.firstChild.innerHTML;
+		console.log(delJson);
+		var request = $.ajax({
+			method: "POST",
+			url: url + "/techtrack/func/cadastro/del",
+			data: JSON.stringify(delJson),
+			contentType: "application/json",
+			dataType:"json"
+		})
+
+
+		request.fail(function(failed){
+			console.log('FAIL: ',failed);
+			fail();
+		})
+
+		request.done(function(resp){
+			console.log('DONE: ',resp)
+			success();
+			updateList();
+		})
 	})
 
 	$("#DelForm").on('submit',function(event){
@@ -109,7 +129,7 @@ function submitDel(){
 		})
 
 		request.fail(function(failed){
-			console.log('FAIL: ',failed)
+			console.log('FAIL: ',failed);
 			fail();
 		})
 

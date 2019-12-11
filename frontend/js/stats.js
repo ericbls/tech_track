@@ -113,9 +113,9 @@ function updateList(){
 	});
 };
 
-function lineChart(){
+function lineChart(maq_select,lineChart){
 	//let maquina = $("#dropdownMenuButton").text();
-	let maquina = maq_selected;
+	let maquina = maq_select;
 	let start_date = $("#start_date").val();
 	let end_date = $("#end_date").val();
 	let datas = [];
@@ -133,7 +133,10 @@ function lineChart(){
 				let temp2 = temp.getDate() + " " + months[temp.getMonth()];
 				datas[index]= temp2;
 			})
-			var ctx = $("#lineChart");
+			lineChart.data.labels = datas;
+			lineChart.data.datasets[0].data = deltat;
+			lineChart.update();
+			/*
 			var varLineChart = new Chart(ctx,{
 				type: 'line',
 				data: {
@@ -177,14 +180,15 @@ function lineChart(){
 					}
 				}
 			});
+		*/
 		}).fail(function(mensagem){
 			alert(mensagem);
 		});
 };
 
-function barChart(){
+function barChart(maq_select,barChart){
 	//let maquina2 = $("#dropdownMenuButton").text();
-	let maquina2 = maq_selected;
+	let maquina2 = maq_select;
 	let time_sum = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 	$.ajax({
 			method: "GET",
@@ -192,10 +196,8 @@ function barChart(){
 		}).done(function(resp){
 			resp.forEach(function(item,index){
 				if(item.deltat != 0){
-					console.log(item.data_maq);
 					let time_zone = new Date().getTimezoneOffset()/60;
 					let finish_time = new Date("2000-06-01T" + item.data_maq + "-0"+ time_zone +":00");
-					console.log(finish_time);
 					let finish_hour = finish_time.getHours();
 					let finish_min = finish_time.getMinutes();
 					let finish_sec = finish_time.getSeconds();
@@ -224,7 +226,7 @@ function barChart(){
 			relative_sum[index] = (item/total_sum) * 100;
 		})
 		var barChartData = {
-			labels: ['7h','8h','9h','10h','11h','12h','13h','14h','15h','16h','17h','18h','19h','20h','21h','22h'],
+			labels: [],
 			datasets: [{
 				label: 'Running',
 				borderWidth:3,
@@ -233,6 +235,10 @@ function barChart(){
 				data: relative_sum
 			}]
 		};
+		barChart.data.labels = ['7h','8h','9h','10h','11h','12h','13h','14h','15h','16h','17h','18h','19h','20h','21h','22h'];
+		barChart.data.datasets[0].data = relative_sum;
+		barChart.update();
+		/*
 		var ctx2 = $("#barChart");
 		var myBarChart = new Chart(ctx2, {
 			type: 'bar',
@@ -244,6 +250,7 @@ function barChart(){
 				}
 			}
 		});
+		*/
 	}).fail(function(mensagem){
 		alert(mensagem.responseText);
 	});
@@ -253,86 +260,92 @@ $(document).ready(function(){
 	var maq_selected;
 	buildList();
 
-		var ctx = $("#lineChart");
-		var varLineChart = new Chart(ctx,{
-			type: 'line',
-			data: {
-				labels:[],
-				datasets:[{
-						label:"",
-						data:[],
-						pointStyle:'circle',
-						borderColor:"rgba(100,60,140,1)",
-						backgroundColor:"rgba(100,60,140,0.2)",
-						pointBorder:"rgba(100,60,140,1)",
-						pointBorderWidth:2,
-						pointRadius:5,
-						pointBackgroundColor:"rgba(100,60,140,1)"
-					}]
+	var ctx = $("#lineChart");
+	var varLineChart = new Chart(ctx,{
+		type: 'line',
+		data: {
+			labels:[],
+			datasets:[{
+					label:"",
+					data:[],
+					pointStyle:'circle',
+					borderColor:"rgba(100,60,140,1)",
+					backgroundColor:"rgba(100,60,140,0.2)",
+					pointBorder:"rgba(100,60,140,1)",
+					pointBorderWidth:2,
+					pointRadius:5,
+					pointBackgroundColor:"rgba(100,60,140,1)"
+				}]
+		},
+		options: {
+			title:{
+				display:true,
+				text:'Tempo de uso por máquina (em horas)'
 			},
-			options: {
-				title:{
+			scales:{
+				xAxes:[{
 					display:true,
-					text:'Tempo de uso por máquina (em horas)'
-				},
-				scales:{
-					xAxes:[{
+					scaleLable:{
 						display:true,
-						scaleLable:{
-							display:true,
-							labelString:'Dias'
-						}
-					}],
-					yAxes:[{
+						labelString:'Dias'
+					}
+				}],
+				yAxes:[{
+					display:true,
+					scaleLable:{
 						display:true,
-						scaleLable:{
-							display:true,
-							labelString:"Horas"
-						},
-						ticks:{
-							beginAtZero:true,
-							max:24
-						}
-					}]
-				}
+						labelString:"Horas"
+					},
+					ticks:{
+						beginAtZero:true,
+						max:24
+					}
+				}]
 			}
-		});
+		}
+	});
 
-		var ctx2 = $("#barChart");
-		var varBarChart = new Chart(ctx2, {
-			type: 'bar',
-			data: [],
-			options: {
-				scales: {
-					xAxes: [{ stacked: false }],
-					yAxes: [{
-						ticks:{beginAtZero:true},
-						stacked: false
-					}]
-				}
+	var ctx2 = $("#barChart");
+	var varBarChart = new Chart(ctx2, {
+		type: 'bar',
+		data: {
+			labels: [],
+			datasets: [{
+				label: 'Running',
+				borderWidth:3,
+				borderColor:'rgba(85, 202, 206, 1)',
+				backgroundColor: 'rgba(85, 202, 206, 0.6)',
+				data: []
+			}]
+		},
+		options: {
+			scales: {
+				xAxes: [{ stacked: false }],
+				yAxes: [{
+					ticks:{beginAtZero:true},
+					stacked: false
+				}]
 			}
-		});
+		}
+	});
 
 	$("#listTable").on("click", ".clickable-row", function(event){
-		console.log($(this)[0].firstElementChild.innerHTML);
 		maq_selected = $(this)[0].firstElementChild.innerHTML;
-		varLineChart.destroy();
-		varBarChart.destroy();
-		lineChart();
-		barChart();
+		lineChart(maq_selected,varLineChart);
+		barChart(maq_selected,varBarChart);
 	});
 	$("#start_date, #end_date").on("changeDate", function(event){
-		varLineChart.destroy();
-		varBarChart.destroy();
-		lineChart();
-		barChart();
+		lineChart(maq_selected,varLineChart);
+		barChart(maq_selected,varBarChart);
 	});
+	/*
 	$("#reloadGraphs").click(function(){
 		varLineChart.destroy();
 		varBarChart.destroy();
-		lineChart();
+		lineChart(varLineChart);
 		barChart();
 	});
+	*/
 	setInterval(function(){
 		updateList()
 	},5000);
