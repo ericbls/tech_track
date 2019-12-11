@@ -11,6 +11,9 @@ function buildList(){
 		var table_html = '';
 		var drop_html = '';
 		resp.forEach(function(item, index){
+			if(index == 0){
+				maq_selected = item.id;
+			}
 			table_html += "<tr class=\"clickable-row\">";
 			table_html += "<td>" + item.id + "</td>";
 			table_html += "<td>" + item.fabricante + "</td>";
@@ -40,16 +43,21 @@ function buildList(){
 		alert(mensagem);
 	});
 
-  var start_date_input=$('input[name="start_date"]');
-  var start_container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-  var start_options={
+	var date = new Date();
+	var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+	var yesterday = new Date(date.getFullYear(), date.getMonth(), date.getDate()-1);
+
+	var start_date_input=$('input[name="start_date"]');
+	var start_container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+	var start_options={
 		todayBtn: true,
-    format: 'yyyy-mm-dd',
-    container: start_container,
-    todayHighlight: true,
-    autoclose: true,
-  };
-  start_date_input.datepicker(start_options);
+		format: 'yyyy-mm-dd',
+		container: start_container,
+		todayHighlight: true,
+		autoclose: true
+	};
+	start_date_input.datepicker(start_options);
+	start_date_input.datepicker('setDate', yesterday);
 
 	var end_date_input=$('input[name="end_date"]');
 	var end_container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
@@ -58,9 +66,10 @@ function buildList(){
 		format: 'yyyy-mm-dd',
 		container: end_container,
 		todayHighlight: true,
-		autoclose: true,
+		autoclose: true
 	};
 	end_date_input.datepicker(end_options);
+	end_date_input.datepicker('setDate', today);
 };
 
 function updateList(){
@@ -105,7 +114,8 @@ function updateList(){
 };
 
 function lineChart(){
-	let maquina = $("#dropdownMenuButton").text();
+	//let maquina = $("#dropdownMenuButton").text();
+	let maquina = maq_selected;
 	let start_date = $("#start_date").val();
 	let end_date = $("#end_date").val();
 	let datas = [];
@@ -173,7 +183,8 @@ function lineChart(){
 };
 
 function barChart(){
-	let maquina2 = $("#dropdownMenuButton").text();
+	//let maquina2 = $("#dropdownMenuButton").text();
+	let maquina2 = maq_selected;
 	let time_sum = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 	$.ajax({
 			method: "GET",
@@ -239,6 +250,7 @@ function barChart(){
 };
 
 $(document).ready(function(){
+	var maq_selected;
 	buildList();
 
 		var ctx = $("#lineChart");
@@ -300,8 +312,20 @@ $(document).ready(function(){
 				}
 			}
 		});
+
 	$("#listTable").on("click", ".clickable-row", function(event){
 		console.log($(this)[0].firstElementChild.innerHTML);
+		maq_selected = $(this)[0].firstElementChild.innerHTML;
+		varLineChart.destroy();
+		varBarChart.destroy();
+		lineChart();
+		barChart();
+	});
+	$("#start_date, #end_date").on("changeDate", function(event){
+		varLineChart.destroy();
+		varBarChart.destroy();
+		lineChart();
+		barChart();
 	});
 	$("#reloadGraphs").click(function(){
 		varLineChart.destroy();
